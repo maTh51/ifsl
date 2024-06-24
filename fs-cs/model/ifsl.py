@@ -100,6 +100,8 @@ class iFSLModule(pl.LightningModule):
         er_b = self.average_meter.update_cls(pred_cls, batch['query_class_presence'], loss=None)
         iou_b = self.average_meter.update_seg(pred_seg, batch, loss=None)
 
+        self.average_meter.update_f1_metrics(pred_seg.cpu(), batch['query_mask'].to(torch.int).cpu())
+
         if self.args.vis:
             print(batch_idx, 'qry:', batch['query_name'])
             print(batch_idx, 'spt:', batch['support_names'])
@@ -122,11 +124,17 @@ class iFSLModule(pl.LightningModule):
     def test_epoch_end(self, test_step_outputs):
         miou = self.average_meter.compute_iou()
         er = self.average_meter.compute_cls_er()
+
+        precisions, recalls, f1_scores = self.average_meter.calculate_f1_metrics()
+
         length = 16
         dict = {'benchmark'.ljust(length): self.args.benchmark,
                 'fold'.ljust(length): self.args.fold,
                 'test/miou'.ljust(length): miou.item(),
-                'test/er'.ljust(length): er.item()}
+                'test/er'.ljust(length): er.item(),
+                'test/Precisions'.ljust(length): precisions,
+                'test/Recalls'.ljust(length): recalls,
+                'test/F1-scores'.ljust(length): f1_scores}
 
         for k in dict:
             self.log(k, dict[k], on_epoch=True)

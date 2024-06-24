@@ -56,7 +56,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Methods for Integrative Few-Shot Classification and Segmentation')
     parser.add_argument('--datapath', type=str, default='~/datasets', help='Dataset path containing the root dir of pascal & coco')
     parser.add_argument('--method', type=str, default='asnet', choices=['panet', 'pfenet', 'hsnet', 'asnet', 'asnethm'], help='FS-CS methods')
-    parser.add_argument('--benchmark', type=str, default='pascal', choices=['pascal', 'coco'], help='Experiment benchmark')
+    parser.add_argument('--benchmark', type=str, default='pascal', choices=['pascal', 'coco', 'vaihingen'], help='Experiment benchmark')
     parser.add_argument('--logpath', type=str, default='', help='Checkpoint saving dir identifier')
     parser.add_argument('--way', type=int, default=1, help='N-way for K-shot evaluation episode')
     parser.add_argument('--shot', type=int, default=1, help='K-shot for N-way K-shot evaluation episode: fixed to 1 for training')
@@ -70,6 +70,10 @@ if __name__ == '__main__':
     parser.add_argument('--weak', action='store_true', help='Flag to train with cls (weak) labels -- reduce learning rate by 10 times')
     parser.add_argument('--resume', action='store_true', help='Flag to resume a finished run')
     parser.add_argument('--vis', action='store_true', help='Flag to visualize. Use with --eval')
+    
+    parser.add_argument('--bgd', action='store_true', help='With background?')
+    parser.add_argument('--rdn_sup', action='store_true', help='Random support images?')
+    
     args = parser.parse_args()
 
     main(args)

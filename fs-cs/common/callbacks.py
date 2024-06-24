@@ -94,6 +94,10 @@ class CustomCheckpoint(ModelCheckpoint):
     """
     def __init__(self, args):
         self.dirpath = os.path.join('logs', args.benchmark, f'fold{args.fold}', args.backbone, args.logpath)
+
+        if args.benchmark == 'vaihingen':
+            self.dirpath = os.path.join('logs', 'pascal', f'fold{args.fold}', args.backbone, args.logpath)
+
         if not args.eval and not args.resume:
             assert not os.path.exists(self.dirpath), f'{self.dirpath} already exists'
         self.filename = 'best_model'
@@ -139,3 +143,4 @@ class OnlineLogger(WandbLogger):
             log_model=False,
         )
         self.experiment.config.update(args)
+

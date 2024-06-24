@@ -40,6 +40,15 @@ class Visualizer:
         cls.colors = np.asarray(cls.colors)
 
         cls.way = way
+        cls.vaihingen_colors = np.asarray([
+                    # [255, 255, 255], # Impervious surfaces (white)
+                    [0, 0, 255],     # Buildings (blue)
+                    [0, 255, 255],   # Low vegetation (cyan)
+                    [0, 255, 0],     # Trees (green)
+                    [255, 255, 0],   # Cars (yellow)
+                    [255, 0, 0],     # Clutter (red)
+        ])
+        cls.vaihingen = True
 
     @classmethod
     def visualize_prediction_batch(cls, spt_img_b, spt_mask_b, qry_img_b, qry_mask_b, qry_org_size_b, pred_mask_b, batch_idx, iou_b=None, er_b=None, to_cpu=False):
@@ -68,17 +77,21 @@ class Visualizer:
 
     @classmethod
     def visualize_prediction(cls, spt_imgs, spt_masks, qry_img, qry_mask, qry_org_size, pred_mask, batch_idx, sample_idx, iou=None, er=None):
+        if cls.vaihingen:
+            use_colors = cls.vaihingen_colors
+        else:
+            use_colors = cls.colors
 
         spt_imgs = [cls.to_numpy(spt_img_c, 'img') for spt_img_c in spt_imgs]
         spt_masks = [cls.to_numpy(spt_mask_c, 'mask') for spt_mask_c in spt_masks]
-        spt_masked_pils = [Image.fromarray(cls.apply_mask(spt_img_c, spt_mask_c, cls.colors)) for spt_img_c, spt_mask_c in zip(spt_imgs, spt_masks)]
+        spt_masked_pils = [Image.fromarray(cls.apply_mask(spt_img_c, spt_mask_c, use_colors)) for spt_img_c, spt_mask_c in zip(spt_imgs, spt_masks)]
 
         qry_img = cls.resize(qry_img, qry_org_size)
         qry_img = cls.to_numpy(qry_img, 'img')
         qry_mask = cls.to_numpy(qry_mask, 'mask')
         pred_mask = cls.to_numpy(pred_mask, 'mask')
-        pred_masked_pil = Image.fromarray(cls.apply_mask(qry_img.astype(np.uint8), pred_mask.astype(np.uint8), cls.colors))
-        qry_masked_pil = Image.fromarray(cls.apply_mask(qry_img.astype(np.uint8), qry_mask.astype(np.uint8), cls.colors))
+        pred_masked_pil = Image.fromarray(cls.apply_mask(qry_img.astype(np.uint8), pred_mask.astype(np.uint8), use_colors))
+        qry_masked_pil = Image.fromarray(cls.apply_mask(qry_img.astype(np.uint8), qry_mask.astype(np.uint8), use_colors))
 
         vis_path = os.path.join(cls.vis_path, f'{batch_idx}_{sample_idx}.jpg')
         cls.save_plt(spt_masked_pils, pred_masked_pil, qry_masked_pil, iou, er, vis_path)

@@ -1,6 +1,6 @@
 r""" Evaluation helpers """
 import torch
-
+from torchmetrics import F1 #torchmetrics 0.3.2 !! (socorro)
 
 class Evaluator:
     @classmethod
@@ -55,6 +55,8 @@ class AverageMeter:
             self.nclass = 20
         elif self.benchmark == 'coco':
             self.nclass = 80
+        elif self.benchmark == 'vaihingen':
+            self.nclass = way+1 
 
         self.total_area_inter = torch.zeros((self.nclass + 1, ), dtype=torch.float32)
         self.total_area_union = torch.zeros((self.nclass + 1, ), dtype=torch.float32)
@@ -67,6 +69,12 @@ class AverageMeter:
         self.cls_er_sum = 0.
         self.cls_loss_count = 0.
         self.cls_er_count = 0.
+
+        self.macro_f1 = 0.
+        self.micro_f1 = 0.
+        self.f1_per_class = torch.tensor([0., 0., 0., 0., 0.,])
+        self.f1_count = 0.
+        self.metrics = [{'tp': 0, 'fp': 0, 'fn': 0} for _ in range(self.nclass)]
 
     def update_seg(self, pred_mask, batch, loss=None):
         ignore_mask = batch.get('query_ignore_idx')
@@ -169,3 +177,56 @@ class AverageMeter:
             self.cls_loss_count += bsz
 
         return samplewise_er * 100.
+
+    def compute_f1(self, pred_seg, gt_seg):
+        f1 = F1(num_classes= self.nclass, average= "macro", mdmc_average="global")
+        macro = f1(pred_seg, gt_seg)
+        f1 = F1(num_classes= self.nclass, average= "micro", mdmc_average="global")
+        micro = f1(pred_seg, gt_seg)
+        f1 = F1(num_classes= self.nclass, average= "none", mdmc_average="global")
+        per_class = f1(pred_seg, gt_seg)
+
+        self.macro_f1 += macro
+        self.micro_f1 += micro
+        self.f1_per_class += per_class
+        self.f1_count += 1.
+
+        return macro, micro, per_class
+
+    def compute_f1_total(self):
+        macro_total = self.macro_f1 / self.f1_count
+        micro_total = self.micro_f1 / self.f1_count
+        per_class_total = self.f1_per_class / self.f1_count
+
+        return macro_total, micro_total, per_class_total
+    
+
+    def update_f1_metrics(self, pred, target):
+        for cls in range(self.nclass):
+            true_positive = ((pred == cls) & (target == cls)).sum().item()
+            false_positive = ((pred == cls) & (target != cls)).sum().item()
+            false_negative = ((pred != cls) & (target == cls)).sum().item()
+
+            self.metrics[cls]['tp'] += true_positive
+            self.metrics[cls]['fp'] += false_positive
+            self.metrics[cls]['fn'] += false_negative
+
+    def calculate_f1_metrics(self):
+        precisions = []
+        recalls = []
+        f1_scores = []
+
+        for cls in range(self.nclass):
+            tp = self.metrics[cls]['tp']
+            fp = self.metrics[cls]['fp']
+            fn = self.metrics[cls]['fn']
+
+            precision = tp / (tp + fp + 1e-7)
+            recall = tp / (tp + fn + 1e-7)
+            f1_score = 2 * (precision * recall) / (precision + recall + 1e-7)
+
+            precisions.append(precision)
+            recalls.append(recall)
+            f1_scores.append(f1_score)
+        
+        return precisions, recalls, f1_scores

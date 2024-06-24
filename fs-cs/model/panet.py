@@ -79,7 +79,7 @@ class PrototypeAlignmentNetwork(iFSLModule):
         ''' logit_mask: B, (N + 1), H, W in the case of lazy_merge=False (default) '''
         # TODO: the categorical softmax above makes generalized class prediction extremely challenging..
         # do something
-        assert self.way == 1
+        # assert self.way == 1
         class_activation = logit_mask[:, 1:].max(dim=-1)[0].max(dim=-1)[0] >= math.log(0.5)
         return class_activation.type(logit_mask.dtype).detach()
 
