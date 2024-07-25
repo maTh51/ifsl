@@ -95,7 +95,7 @@ class CustomCheckpoint(ModelCheckpoint):
     def __init__(self, args):
         self.dirpath = os.path.join('logs', args.benchmark, f'fold{args.fold}', args.backbone, args.logpath)
 
-        if args.benchmark == 'vaihingen':
+        if args.benchmark == 'vaihingen' or  args.benchmark == 'chesapeake':
             self.dirpath = os.path.join('logs', 'pascal', f'fold{args.fold}', args.backbone, args.logpath)
 
         if not args.eval and not args.resume:

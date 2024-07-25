@@ -1,4 +1,4 @@
-r""" Vaihingen few-shot classification and segmentation dataset """
+r""" Chesapeake few-shot classification and segmentation dataset """
 import os
 
 from torch.utils.data import Dataset
@@ -6,26 +6,29 @@ import torch.nn.functional as F
 import torch
 import PIL.Image as Image
 import numpy as np
+import rasterio as rio
+import random
+
 
 TOTAL_TILES = 819
 
-class DatasetVAIHINGEN (Dataset):
+class DatasetCHESAPEAKE (Dataset):
     """
-    FS-CS Vaihingen dataset of which split follows the standard FS-S dataset
+    FS-CS Chesapeake dataset of which split follows the standard FS-S dataset
     """
     def __init__(self, datapath, fold, transform, split, way, shot, bgd, rdn_sup):
         self.split = 'val' if split in ['val', 'test'] else 'trn'
         self.nfolds = 1
-        self.nclass = 4
-        self.benchmark = 'vaihingen'
+        self.nclass = 6
+        self.benchmark = 'chesapeake'
 
         self.fold = fold
         self.way = way
         self.shot = shot
 
-        self.img_path = os.path.join(datapath, 'Vaihingen/tiles/images/')
-        self.ann_path = os.path.join(datapath, 'Vaihingen/tiles/masks/')
-        self.pool_path = os.path.join(datapath, 'Vaihingen/tiles/pool_files/')
+        self.img_path = os.path.join(datapath, 'chesapeake_400/images/')
+        self.ann_path = os.path.join(datapath, 'chesapeake_400/masks/')
+        self.pool_path = os.path.join(datapath, 'chesapeake_400/pools/')
         self.transform = transform
 
         self.bgd = bgd
@@ -41,13 +44,14 @@ class DatasetVAIHINGEN (Dataset):
             }
         else:
             self.mask_palette = {
-                0: (255, 255, 255),  # Impervious surfaces (white)
-                1: (0, 0, 255),  # Buildings (blue)
-                2: (0, 255, 255),  # Low vegetation (cyan)
-                3: (0, 255, 0),  # Trees (green)
-                4: (255, 255, 0),  # Cars (yellow)
-                0: (255, 0, 0),  # Clutter (red)
-                0: (0, 0, 0)  # Undefined (black)
+                0: (0, 0, 0),  # não existe no dataset
+                1: (0, 255, 255),    # agua
+                2: (255, 255, 0),    # floresta
+                3: (0, 128, 0),      # campo
+                4: (75, 34, 33),     # terra estéril
+                5: (128, 128, 128),  # impermeável (outro)
+                6: (255, 192, 203),  # impermeável (estrada)
+                15: (0, 0, 0)        # sem dados
             }
 
 
@@ -165,32 +169,50 @@ class DatasetVAIHINGEN (Dataset):
 
     def read_img(self, img_name):
         r"""Return RGB image in PIL Image"""
-        return Image.open(os.path.join(self.img_path, img_name))
+        # return Image.open(os.path.join(self.img_path, img_name))
+        with rio.open(os.path.join(self.img_path, img_name)) as src:
+            red = src.read(1)
+            green = src.read(2)
+            blue = src.read(3)
+            rgb = np.dstack((red, green, blue))
+        return Image.fromarray(rgb, 'RGB')
     
     def read_mask(self, img_name):
         r"""Return segmentation mask in PIL Image"""
-        mask = torch.tensor(self.convert_mask(np.array(Image.open(os.path.join(self.ann_path, img_name)))))
-        return mask
+        # Image.open(os.path.join(self.ann_path, img_name))
+        rast_mask = rio.open(os.path.join(self.ann_path, img_name)).read(1)
+        # mask = torch.tensor(self.convert_mask(np.moveaxis(rast_mask, 0, -1)))
+        return torch.tensor(rast_mask)
 
+    # def convert_mask(self, np_mask):
+    #     height, width, _ = np_mask.shape
+    #     new_mask = np.zeros((height, width), dtype=np.uint8)
+
+    #     # Itera sobre cada pixel da imagem
+    #     for y in range(height):
+    #         for x in range(width):
+    #             # Obtém a cor do pixel
+    #             collor = tuple(np_mask[y, x])
+
+    #             # Procura a correspondência na paleta de cores
+    #             for index, collor_palette in self.mask_palette.items():
+    #                 if collor == collor_palette:
+    #                     # Atribui o índice correspondente à máscara
+    #                     new_mask[y, x] = index
+    #                     break
+
+    #     return new_mask
     def convert_mask(self, np_mask):
-        height, width, _ = np_mask.shape
-        new_mask = np.zeros((height, width), dtype=np.uint8)
+        height, width, channels = np_mask.shape
 
-        # Cria um array para mapear cores para índices
-        color_to_index = np.zeros((256, 256, 256), dtype=np.uint8)
-
+        # Assume que o primeiro canal é o índice da classe
+        class_channel = np_mask[:, :, 0]
+        new_mask = np.zeros((height, width, 3), dtype=np.uint8)
+        
+        # Mapeia os valores do primeiro canal para cores
         for index, color in self.mask_palette.items():
-            color_to_index[color] = index
-
-        # Reshape da máscara original para facilitar o mapeamento
-        flat_mask = np_mask.reshape(-1, 3)
-
-        # Mapeamento das cores para índices
-        flat_new_mask = color_to_index[flat_mask[:, 0], flat_mask[:, 1], flat_mask[:, 2]]
-
-        # Reshape da máscara de volta para a forma original
-        new_mask = flat_new_mask.reshape(height, width)
-
+            new_mask[class_channel == index] = color
+        
         return new_mask
 
     def sample_episode(self, idx):
@@ -261,7 +283,7 @@ class DatasetVAIHINGEN (Dataset):
     # Read query and supports files
     def build_pools(self):
         query_pool = []
-        query_file = os.path.join(self.pool_path, f'querys.txt')
+        query_file = os.path.join(self.pool_path, f'5.txt')
         with open(query_file, 'r') as f:
             query_pool = f.read().split('\n')[:-1]
 
@@ -275,49 +297,50 @@ class DatasetVAIHINGEN (Dataset):
             21: [],
         }
         for i in range(1,self.nclass+1):
-            support_file = os.path.join(self.pool_path, f'support_{i}.txt')
+            support_file = os.path.join(self.pool_path, f'{i}.txt')
             with open(support_file, 'r') as f:
                 support_pool[i] = f.read().split('\n')[:-1]
                 support_pool[21] += support_pool[i]
 
-        return query_pool, support_pool
+        # return query_pool, support_pool
+        return random.sample(support_pool[21], 100), support_pool
     
     
-    def build_img_metadata(self):
+    # def build_img_metadata(self):
 
-        def read_metadata(split, fold_id):  
-            fold_n_metadata = os.path.join(f'data/splits/vaihingen/fold0.txt')
-            with open(fold_n_metadata, 'r') as f:
-                fold_n_metadata = f.read().split('\n')[:-1]
-            fold_n_metadata = [[data.split('__')[0], int(data.split('__')[1])] for data in fold_n_metadata]
-            return fold_n_metadata
+    #     def read_metadata(split, fold_id):  
+    #         fold_n_metadata = os.path.join(f'data/splits/chesapeake/fold0.txt')
+    #         with open(fold_n_metadata, 'r') as f:
+    #             fold_n_metadata = f.read().split('\n')[:-1]
+    #         fold_n_metadata = [[data.split('__')[0], int(data.split('__')[1])] for data in fold_n_metadata]
+    #         return fold_n_metadata
 
-        img_metadata = []
-        if self.split == 'trn':  # For training, read image-metadata of "the other" folds
-            for fold_id in range(self.nfolds):
-                if fold_id == self.fold:  # Skip validation fold
-                    continue
-                img_metadata += read_metadata(self.split, fold_id)
-        elif self.split == 'val':  # For validation, read image-metadata of "current" fold
-            img_metadata = read_metadata(self.split, self.fold)
-        else:
-            raise Exception('Undefined split %s: ' % self.split)
+    #     img_metadata = []
+    #     if self.split == 'trn':  # For training, read image-metadata of "the other" folds
+    #         for fold_id in range(self.nfolds):
+    #             if fold_id == self.fold:  # Skip validation fold
+    #                 continue
+    #             img_metadata += read_metadata(self.split, fold_id)
+    #     elif self.split == 'val':  # For validation, read image-metadata of "current" fold
+    #         img_metadata = read_metadata(self.split, self.fold)
+    #     else:
+    #         raise Exception('Undefined split %s: ' % self.split)
 
-        print(f'Total {self.split} images are : {len(img_metadata):,}')
+    #     print(f'Total {self.split} images are : {len(img_metadata):,}')
 
-        return img_metadata
+    #     return img_metadata
 
-    def build_img_metadata_classwise(self):
-        img_metadata_classwise = {}
-        for class_id in range(1, self.nclass + 1):
-            img_metadata_classwise[class_id] = []
+    # def build_img_metadata_classwise(self):
+    #     img_metadata_classwise = {}
+    #     for class_id in range(1, self.nclass + 1):
+    #         img_metadata_classwise[class_id] = []
 
-        for img_name, img_class in self.img_metadata:
-            img_metadata_classwise[img_class] += [img_name]
+    #     for img_name, img_class in self.img_metadata:
+    #         img_metadata_classwise[img_class] += [img_name]
 
-        # img_metadata_classwise.keys(): [1, 2, ..., 20]
-        assert 0 not in img_metadata_classwise.keys()
-        assert self.nclass in img_metadata_classwise.keys()
+    #     # img_metadata_classwise.keys(): [1, 2, ..., 20]
+    #     assert 0 not in img_metadata_classwise.keys()
+    #     assert self.nclass in img_metadata_classwise.keys()
 
-        return img_metadata_classwise
+    #     return img_metadata_classwise
 

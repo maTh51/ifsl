@@ -6,6 +6,8 @@ from pytorch_lightning.core.datamodule import LightningDataModule
 from data.pascal import DatasetPASCAL
 from data.coco import DatasetCOCO
 from data.vaihingen import DatasetVAIHINGEN
+from data.chesapeake import DatasetCHESAPEAKE
+
 
 
 class FSCSDatasetModule(LightningDataModule):
@@ -24,6 +26,7 @@ class FSCSDatasetModule(LightningDataModule):
             'pascal': DatasetPASCAL,
             'coco': DatasetCOCO,
             'vaihingen': DatasetVAIHINGEN,
+            'chesapeake': DatasetCHESAPEAKE,
         }
         self.transform = transforms.Compose([transforms.Resize(size=(self.img_size, self.img_size)),
                                             transforms.ToTensor(),
@@ -48,7 +51,7 @@ class FSCSDatasetModule(LightningDataModule):
                                                      shot=self.args.shot,
                                                      bgd=self.args.bgd,
                                                      rdn_sup=self.args.rdn_sup)
-        dataloader = DataLoader(dataset, batch_size=1, shuffle=False, num_workers=8)
+        dataloader = DataLoader(dataset, batch_size=1, shuffle=False, num_workers=16)
         return dataloader
 
     def test_dataloader(self):

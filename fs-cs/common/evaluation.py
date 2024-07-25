@@ -57,6 +57,8 @@ class AverageMeter:
             self.nclass = 80
         elif self.benchmark == 'vaihingen':
             self.nclass = way+1 
+        elif self.benchmark == 'chesapeake':
+            self.nclass = way+1 
 
         self.total_area_inter = torch.zeros((self.nclass + 1, ), dtype=torch.float32)
         self.total_area_union = torch.zeros((self.nclass + 1, ), dtype=torch.float32)

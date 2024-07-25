@@ -11,6 +11,9 @@ from model.asnethm import AttentiveSqueezeNetworkHM
 from data.dataset import FSCSDatasetModule
 from common.callbacks import MeterCallback, CustomProgressBar, CustomCheckpoint, OnlineLogger
 
+import os
+import GPUtil
+
 
 def main(args):
 
@@ -56,7 +59,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Methods for Integrative Few-Shot Classification and Segmentation')
     parser.add_argument('--datapath', type=str, default='~/datasets', help='Dataset path containing the root dir of pascal & coco')
     parser.add_argument('--method', type=str, default='asnet', choices=['panet', 'pfenet', 'hsnet', 'asnet', 'asnethm'], help='FS-CS methods')
-    parser.add_argument('--benchmark', type=str, default='pascal', choices=['pascal', 'coco', 'vaihingen'], help='Experiment benchmark')
+    parser.add_argument('--benchmark', type=str, default='pascal', choices=['pascal', 'coco', 'vaihingen', 'chesapeake'], help='Experiment benchmark')
     parser.add_argument('--logpath', type=str, default='', help='Checkpoint saving dir identifier')
     parser.add_argument('--way', type=int, default=1, help='N-way for K-shot evaluation episode')
     parser.add_argument('--shot', type=int, default=1, help='K-shot for N-way K-shot evaluation episode: fixed to 1 for training')
@@ -75,5 +78,10 @@ if __name__ == '__main__':
     parser.add_argument('--rdn_sup', action='store_true', help='Random support images?')
     
     args = parser.parse_args()
+
+    # Encontra a GPU com mais memória livre
+    gpus = GPUtil.getGPUs()
+    least_used_gpu = min(gpus, key=lambda gpu: gpu.memoryUsed)
+    os.environ["CUDA_VISIBLE_DEVICES"] = str(least_used_gpu.id)
 
     main(args)

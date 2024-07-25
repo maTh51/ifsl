@@ -48,7 +48,18 @@ class Visualizer:
                     [255, 255, 0],   # Cars (yellow)
                     [255, 0, 0],     # Clutter (red)
         ])
-        cls.vaihingen = True
+        cls.chesapeake_colors = np.asarray([
+                    # [0, 0, 0],       # não existe no dataset
+                    [0, 255, 255],   # agua
+                    [255, 255, 0],   # floresta
+                    [0, 128, 0],     # campo
+                    [75, 34, 33],    # terra estéril
+                    [128, 128, 128], # impermeável (outro)
+                    [255, 192, 203], # impermeável (estrada)
+                    [0, 0, 0],       # sem dados
+        ])
+        cls.vaihingen = False
+        cls.chesapeake = True
 
     @classmethod
     def visualize_prediction_batch(cls, spt_img_b, spt_mask_b, qry_img_b, qry_mask_b, qry_org_size_b, pred_mask_b, batch_idx, iou_b=None, er_b=None, to_cpu=False):
@@ -79,6 +90,8 @@ class Visualizer:
     def visualize_prediction(cls, spt_imgs, spt_masks, qry_img, qry_mask, qry_org_size, pred_mask, batch_idx, sample_idx, iou=None, er=None):
         if cls.vaihingen:
             use_colors = cls.vaihingen_colors
+        elif cls.chesapeake:
+            use_colors = cls.chesapeake_colors
         else:
             use_colors = cls.colors
 
