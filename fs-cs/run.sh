@@ -1,6 +1,6 @@
 #!/bin/bash
 
-python main.py --datapath /scratch/matheuspimenta/ \
+python main.py --datapath /scratch/gabrielamarante/dataset/ \
   --benchmark chesapeake \
   --method panet \
   --logpath panet \

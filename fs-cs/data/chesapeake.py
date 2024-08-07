@@ -7,6 +7,7 @@ import torch
 import PIL.Image as Image
 import numpy as np
 import rasterio as rio
+from rasterio.windows import Window
 import random
 
 
@@ -26,9 +27,10 @@ class DatasetCHESAPEAKE (Dataset):
         self.way = way
         self.shot = shot
 
-        self.img_path = os.path.join(datapath, 'chesapeake_400/images/')
-        self.ann_path = os.path.join(datapath, 'chesapeake_400/masks/')
-        self.pool_path = os.path.join(datapath, 'chesapeake_400/pools/')
+        self.img_path = os.path.join(datapath)
+        self.ann_path = os.path.join(datapath)
+        # self.pool_path = os.path.join(datapath, 'chesapeake_400/pools/')
+        self.pool_path = '/home/grad/ccomp/18/matheuspimenta/ifsl/utils/'
         self.transform = transform
 
         self.bgd = bgd
@@ -170,17 +172,23 @@ class DatasetCHESAPEAKE (Dataset):
     def read_img(self, img_name):
         r"""Return RGB image in PIL Image"""
         # return Image.open(os.path.join(self.img_path, img_name))
-        with rio.open(os.path.join(self.img_path, img_name)) as src:
-            red = src.read(1)
-            green = src.read(2)
-            blue = src.read(3)
+        path, dims = img_name.split(";")
+        dims = dims.split(",")
+        window = Window(int(dims[0]), int(dims[1]), 400, 400)
+        with rio.open(os.path.join(self.img_path, path.replace( "lc.tif", "naip-new.tif"))) as src:
+            red = src.read(1, window=window)
+            green = src.read(2, window=window)
+            blue = src.read(3, window=window)
             rgb = np.dstack((red, green, blue))
         return Image.fromarray(rgb, 'RGB')
     
     def read_mask(self, img_name):
         r"""Return segmentation mask in PIL Image"""
         # Image.open(os.path.join(self.ann_path, img_name))
-        rast_mask = rio.open(os.path.join(self.ann_path, img_name)).read(1)
+        path, dims = img_name.split(";")
+        dims = dims.split(",")
+        window = Window(int(dims[0]), int(dims[1]), 400, 400)
+        rast_mask = rio.open(os.path.join(self.ann_path, path)).read(1, window=window)
         # mask = torch.tensor(self.convert_mask(np.moveaxis(rast_mask, 0, -1)))
         return torch.tensor(rast_mask)
 
