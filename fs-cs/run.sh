@@ -6,10 +6,11 @@ python main.py --datapath /scratch/gabrielamarante/dataset/ \
   --logpath panet \
   --way 6 \
   --shot 1 \
+  --bgclass 2 \
   --bsz 1 \
   --fold 0 \
   --backbone resnet50 \
   --eval \
   --bgd \
-  # --vis \
+  --vis \
   # --rdn_sup \

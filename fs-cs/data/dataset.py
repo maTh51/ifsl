@@ -49,6 +49,7 @@ class FSCSDatasetModule(LightningDataModule):
                                                      split='val',
                                                      way=self.args.way,
                                                      shot=self.args.shot,
+                                                     bgclass=self.args.bgclass,
                                                      bgd=self.args.bgd,
                                                      rdn_sup=self.args.rdn_sup)
         dataloader = DataLoader(dataset, batch_size=1, shuffle=False, num_workers=16)

@@ -17,15 +17,16 @@ class DatasetCHESAPEAKE (Dataset):
     """
     FS-CS Chesapeake dataset of which split follows the standard FS-S dataset
     """
-    def __init__(self, datapath, fold, transform, split, way, shot, bgd, rdn_sup):
+    def __init__(self, datapath, fold, transform, split, way, shot, bgclass, bgd, rdn_sup):
         self.split = 'val' if split in ['val', 'test'] else 'trn'
         self.nfolds = 1
-        self.nclass = 6
+        self.nclass = 6 - (1 if bgclass != 0 else -0)
         self.benchmark = 'chesapeake'
 
         self.fold = fold
-        self.way = way
+        self.way = self.nclass
         self.shot = shot
+        self.bgclass = bgclass
 
         self.img_path = os.path.join(datapath)
         self.ann_path = os.path.join(datapath)
@@ -46,14 +47,14 @@ class DatasetCHESAPEAKE (Dataset):
             }
         else:
             self.mask_palette = {
-                0: (0, 0, 0),  # não existe no dataset
-                1: (0, 255, 255),    # agua
-                2: (255, 255, 0),    # floresta
-                3: (0, 128, 0),      # campo
-                4: (75, 34, 33),     # terra estéril
-                5: (128, 128, 128),  # impermeável (outro)
-                6: (255, 192, 203),  # impermeável (estrada)
-                15: (0, 0, 0)        # sem dados
+                0:  0,    # não existe no dataset
+                1:  1,    # agua
+                2:  0,    # floresta
+                3:  2,    # campo
+                4:  3,    # terra estéril
+                5:  4,    # impermeável (outro)
+                6:  4,    # impermeável (estrada)
+                15: 0,   # sem dados
             }
 
 
@@ -61,7 +62,7 @@ class DatasetCHESAPEAKE (Dataset):
         # self.img_metadata = self.build_img_metadata()
         # self.img_metadata_classwise = self.build_img_metadata_classwise()
         self.query_pool, self.support_pool = self.build_pools() 
-        self.class_ids = [x for x in range(1,self.nclass+1)]
+        self.class_ids = [x for x in range(1,self.nclass+1)].remove(bgclass)
         self.rdn_sup = rdn_sup
 
     def __len__(self):
@@ -190,38 +191,31 @@ class DatasetCHESAPEAKE (Dataset):
         window = Window(int(dims[0]), int(dims[1]), 400, 400)
         rast_mask = rio.open(os.path.join(self.ann_path, path)).read(1, window=window)
         # mask = torch.tensor(self.convert_mask(np.moveaxis(rast_mask, 0, -1)))
+        if self.bgclass != 0:
+            rast_mask = self.convert_mask(rast_mask)
         return torch.tensor(rast_mask)
 
-    # def convert_mask(self, np_mask):
-    #     height, width, _ = np_mask.shape
-    #     new_mask = np.zeros((height, width), dtype=np.uint8)
-
-    #     # Itera sobre cada pixel da imagem
-    #     for y in range(height):
-    #         for x in range(width):
-    #             # Obtém a cor do pixel
-    #             collor = tuple(np_mask[y, x])
-
-    #             # Procura a correspondência na paleta de cores
-    #             for index, collor_palette in self.mask_palette.items():
-    #                 if collor == collor_palette:
-    #                     # Atribui o índice correspondente à máscara
-    #                     new_mask[y, x] = index
-    #                     break
-
-    #     return new_mask
     def convert_mask(self, np_mask):
-        height, width, channels = np_mask.shape
-
-        # Assume que o primeiro canal é o índice da classe
-        class_channel = np_mask[:, :, 0]
-        new_mask = np.zeros((height, width, 3), dtype=np.uint8)
+        # height, width = np_mask.shape
         
-        # Mapeia os valores do primeiro canal para cores
-        for index, color in self.mask_palette.items():
-            new_mask[class_channel == index] = color
+        # # Cria um novo array de zeros com a mesma altura e largura
+        # new_mask = np.zeros((height, width), dtype=np.uint8)
         
-        return new_mask
+        # # Mapeia os valores do primeiro canal para novas classes usando o dicionário mask_palette
+        # unique_classes = np.unique(np_mask)
+        # mask_palette_values = np.array([self.mask_palette.get(c, 0) for c in unique_classes], dtype=np.uint8)
+        # class_to_color = dict(zip(unique_classes, mask_palette_values))
+        
+        # # Usa a função np.vectorize para mapear as classes para as novas cores
+        # vectorized_mapping = np.vectorize(class_to_color.get)
+        # new_mask = vectorized_mapping(np_mask)
+        
+        # return new_mask
+        transformed_mask = np.copy(np_mask)
+        transformed_mask[transformed_mask == self.bgclass] = 0
+        transformed_mask[transformed_mask > self.bgclass] -= 1
+        
+        return transformed_mask
 
     def sample_episode(self, idx):
         # Fix (q, s) pair for all queries across different batch sizes for reproducibility
@@ -248,7 +242,7 @@ class DatasetCHESAPEAKE (Dataset):
         
         support_classes = self.class_ids # Todas as classes possíveis menos vazio
         if self.rdn_sup:
-            for sc in range(len(self.class_ids)):
+            for sc in range(len(self.class_ids) (+1 if self.bgclass != 0 else +0)):
                 support_names_c = []
                 while True:
                     support_name = np.random.choice(self.support_pool[21], 1, replace=False)[0]
@@ -291,7 +285,7 @@ class DatasetCHESAPEAKE (Dataset):
     # Read query and supports files
     def build_pools(self):
         query_pool = []
-        query_file = os.path.join(self.pool_path, f'5.txt')
+        query_file = os.path.join(self.pool_path, f'4.txt')
         with open(query_file, 'r') as f:
             query_pool = f.read().split('\n')[:-1]
 
@@ -308,10 +302,14 @@ class DatasetCHESAPEAKE (Dataset):
             support_file = os.path.join(self.pool_path, f'{i}.txt')
             with open(support_file, 'r') as f:
                 support_pool[i] = f.read().split('\n')[:-1]
+                print(i)
+                print(len(support_pool[i]))
                 support_pool[21] += support_pool[i]
 
-        # return query_pool, support_pool
-        return random.sample(support_pool[21], 100), support_pool
+        for v in support_pool.values():
+            print(len(v))
+        return query_pool, support_pool
+        # return random.sample(support_pool[21], 100), support_pool
     
     
     # def build_img_metadata(self):

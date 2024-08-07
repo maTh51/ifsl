@@ -51,12 +51,12 @@ class Visualizer:
         cls.chesapeake_colors = np.asarray([
                     # [0, 0, 0],       # não existe no dataset
                     [0, 255, 255],   # agua
-                    [255, 255, 0],   # floresta
-                    [0, 128, 0],     # campo
-                    [75, 34, 33],    # terra estéril
-                    [128, 128, 128], # impermeável (outro)
-                    [255, 192, 203], # impermeável (estrada)
-                    [0, 0, 0],       # sem dados
+                    # [255, 255, 0],   # floresta
+                    [255, 255, 0],     # campo
+                    [255, 0, 0],    # terra estéril
+                    [127, 0, 255], # impermeável (outro)
+                    [255, 128, 0], # impermeável (estrada)
+                    # [0, 0, 0],       # sem dados
         ])
         cls.vaihingen = False
         cls.chesapeake = True

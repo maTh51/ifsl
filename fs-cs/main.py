@@ -76,6 +76,7 @@ if __name__ == '__main__':
     
     parser.add_argument('--bgd', action='store_true', help='With background?')
     parser.add_argument('--rdn_sup', action='store_true', help='Random support images?')
+    parser.add_argument('--bgclass', type=int, default=0, help='Background Class')
     
     args = parser.parse_args()
 
