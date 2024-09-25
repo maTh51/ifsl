@@ -9,7 +9,7 @@ import numpy as np
 import rasterio as rio
 from rasterio.windows import Window
 import random
-
+import time
 
 TOTAL_TILES = 819
 
@@ -31,38 +31,40 @@ class DatasetCHESAPEAKE (Dataset):
         self.img_path = os.path.join(datapath)
         self.ann_path = os.path.join(datapath)
         # self.pool_path = os.path.join(datapath, 'chesapeake_400/pools/')
-        self.pool_path = '/home/grad/ccomp/18/matheuspimenta/ifsl/utils/'
+        self.pool_path = '/home/matheuspimenta/Jobs/SR/ifsl/utils'
         self.transform = transform
 
         self.bgd = bgd
-        if not self.bgd:
-            self.mask_palette = {
-                1: (255, 255, 255),  # Impervious surfaces (white)
-                2: (0, 0, 255),  # Buildings (blue)
-                3: (0, 255, 255),  # Low vegetation (cyan)
-                4: (0, 255, 0),  # Trees (green)
-                5: (255, 255, 0),  # Cars (yellow)
-                6: (255, 0, 0),  # Clutter (red)
-                0: (0, 0, 0)  # Undefined (black)
-            }
-        else:
-            self.mask_palette = {
-                0:  0,    # não existe no dataset
-                1:  1,    # agua
-                2:  0,    # floresta
-                3:  2,    # campo
-                4:  3,    # terra estéril
-                5:  4,    # impermeável (outro)
-                6:  4,    # impermeável (estrada)
-                15: 0,   # sem dados
-            }
+        # if not self.bgd:
+        #     self.mask_palette = {
+        #         1: (255, 255, 255),  # Impervious surfaces (white)
+        #         2: (0, 0, 255),  # Buildings (blue)
+        #         3: (0, 255, 255),  # Low vegetation (cyan)
+        #         4: (0, 255, 0),  # Trees (green)
+        #         5: (255, 255, 0),  # Cars (yellow)
+        #         6: (255, 0, 0),  # Clutter (red)
+        #         0: (0, 0, 0)  # Undefined (black)
+        #     }
+        # else:
+        #     self.mask_palette = {
+        #         0:  0,    # não existe no dataset
+        #         1:  1,    # agua
+        #         2:  2,    # floresta
+        #         3:  3,    # campo
+        #         4:  4,    # terra estéril
+        #         5:  5,    # impermeável (outro)
+        #         6:  6,    # impermeável (estrada)
+        #         15: 0,   # sem dados
+        #     }
 
 
         # self.class_ids = self.build_class_ids()
         # self.img_metadata = self.build_img_metadata()
         # self.img_metadata_classwise = self.build_img_metadata_classwise()
+        self.class_ids = [1,2,3,4,5,6]
+        if self.bgclass > 0:
+            self.class_ids.remove(self.bgclass)
         self.query_pool, self.support_pool = self.build_pools() 
-        self.class_ids = [x for x in range(1,self.nclass+1)].remove(bgclass)
         self.rdn_sup = rdn_sup
 
     def __len__(self):
@@ -71,16 +73,17 @@ class DatasetCHESAPEAKE (Dataset):
     def __getitem__(self, idx):
         query_name, support_names, _support_classes = self.sample_episode(idx)
         query_img, query_cmask, support_imgs, support_cmasks, org_qry_imsize = self.load_frame(query_name, support_names)
-
         query_class_presence = [s_c in torch.unique(query_cmask) for s_c in _support_classes]  # needed - 1
         rename_class = lambda x: _support_classes.index(x) + 1 if x in _support_classes else 0 # funcao que retorna indice+1 
                                                                                                # se tiver a classe
 
         query_img = self.transform(query_img)
         query_mask, query_ignore_idx = self.get_query_mask(query_img, query_cmask, rename_class)
+        
         support_imgs = torch.stack([torch.stack([self.transform(support_img) for support_img in support_imgs_c]) for support_imgs_c in support_imgs])
         support_masks, support_ignore_idxs = self.get_support_masks(support_imgs, _support_classes, support_cmasks, rename_class)
 
+    
         _support_classes = torch.tensor(_support_classes)
         query_class_presence = torch.tensor(query_class_presence)
 
@@ -192,8 +195,8 @@ class DatasetCHESAPEAKE (Dataset):
         rast_mask = rio.open(os.path.join(self.ann_path, path)).read(1, window=window)
         # mask = torch.tensor(self.convert_mask(np.moveaxis(rast_mask, 0, -1)))
         if self.bgclass != 0:
-            rast_mask = self.convert_mask(rast_mask)
-        return torch.tensor(rast_mask)
+            cv_rast_mask = self.convert_mask(rast_mask)
+        return torch.tensor(cv_rast_mask)
 
     def convert_mask(self, np_mask):
         # height, width = np_mask.shape
@@ -212,9 +215,15 @@ class DatasetCHESAPEAKE (Dataset):
         
         # return new_mask
         transformed_mask = np.copy(np_mask)
-        transformed_mask[transformed_mask == self.bgclass] = 0
-        transformed_mask[transformed_mask > self.bgclass] -= 1
-        
+        if self.bgclass > 0:
+            # print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+            # print(np.unique(transformed_mask))
+            transformed_mask[transformed_mask == self.bgclass] = 0
+            # print(np.unique(transformed_mask))
+            transformed_mask[transformed_mask > self.bgclass] -= 1
+            # print(np.unique(transformed_mask))
+            # print("#############################################")
+            # time.sleep(1)
         return transformed_mask
 
     def sample_episode(self, idx):
@@ -253,10 +262,12 @@ class DatasetCHESAPEAKE (Dataset):
                 support_names.append(support_names_c)
         else:
             for sc in support_classes:
-                # print(support_classes)
-                
                 support_names_c = []
                 while True:  # keep sampling support set if query == support
+                    if len(self.support_pool[sc]) == 0:
+                        print("ERROR!!")
+                        print(sc)
+                        break
                     support_name = np.random.choice(self.support_pool[sc], 1, replace=False)[0]
                     if query_name != support_name and support_name not in support_names_c:
                         support_names_c.append(support_name)
@@ -264,7 +275,7 @@ class DatasetCHESAPEAKE (Dataset):
                         break
                 support_names.append(support_names_c)
 
-        return query_name, support_names, support_classes
+        return query_name, support_names, [i for i in range(1,self.way+1)]
 
     def build_class_ids(self):
         nclass_val = self.nclass // self.nfolds
@@ -296,20 +307,24 @@ class DatasetCHESAPEAKE (Dataset):
             4: [],
             5: [],
             6: [],
-            21: [],
+            21: [], # todas
+            30: [], # selecionadas
         }
-        for i in range(1,self.nclass+1):
+        for i in self.class_ids:
             support_file = os.path.join(self.pool_path, f'{i}.txt')
             with open(support_file, 'r') as f:
                 support_pool[i] = f.read().split('\n')[:-1]
-                print(i)
-                print(len(support_pool[i]))
+                # print(i)
+                # print(len(support_pool[i]))
                 support_pool[21] += support_pool[i]
+                selected_images = random.sample(support_pool[i], 5)
+                support_pool[30] += selected_images
 
         for v in support_pool.values():
             print(len(v))
-        return query_pool, support_pool
+        # return query_pool, support_pool
         # return random.sample(support_pool[21], 100), support_pool
+        return support_pool[30], support_pool
     
     
     # def build_img_metadata(self):

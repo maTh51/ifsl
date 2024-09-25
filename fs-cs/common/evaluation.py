@@ -74,7 +74,7 @@ class AverageMeter:
 
         self.macro_f1 = 0.
         self.micro_f1 = 0.
-        self.f1_per_class = torch.tensor([0., 0., 0., 0., 0.,])
+        self.f1_per_class = torch.tensor([0., 0., 0., 0., 0., 0.])
         self.f1_count = 0.
         self.metrics = [{'tp': 0, 'fp': 0, 'fn': 0} for _ in range(self.nclass)]
 
@@ -204,6 +204,10 @@ class AverageMeter:
     
 
     def update_f1_metrics(self, pred, target):
+        import numpy as np
+        print("EVAL")
+        print(np.unique(pred))
+        print(np.unique(target))
         for cls in range(self.nclass):
             true_positive = ((pred == cls) & (target == cls)).sum().item()
             false_positive = ((pred == cls) & (target != cls)).sum().item()

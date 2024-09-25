@@ -1,10 +1,10 @@
 #!/bin/bash
 
-python main.py --datapath /scratch/gabrielamarante/dataset/ \
+python main.py --datapath /scratch/dataset/chesapeake/ \
   --benchmark chesapeake \
-  --method panet \
-  --logpath panet \
-  --way 6 \
+  --method asnet \
+  --logpath asnet \
+  --way 5 \
   --shot 1 \
   --bgclass 2 \
   --bsz 1 \

@@ -52,11 +52,11 @@ class Visualizer:
                     # [0, 0, 0],       # não existe no dataset
                     [0, 255, 255],   # agua
                     # [255, 255, 0],   # floresta
-                    [255, 255, 0],     # campo
+                    [255, 128, 0],     # campo
                     [255, 0, 0],    # terra estéril
                     [127, 0, 255], # impermeável (outro)
-                    [255, 128, 0], # impermeável (estrada)
-                    # [0, 0, 0],       # sem dados
+                    [255, 0, 255], # impermeável (estrada)
+                    [0, 0, 0],       # sem dados
         ])
         cls.vaihingen = False
         cls.chesapeake = True
@@ -97,6 +97,9 @@ class Visualizer:
 
         spt_imgs = [cls.to_numpy(spt_img_c, 'img') for spt_img_c in spt_imgs]
         spt_masks = [cls.to_numpy(spt_mask_c, 'mask') for spt_mask_c in spt_masks]
+        print("Uniques in support before")
+        for spt_img_c, spt_mask_c in zip(spt_imgs, spt_masks):
+            print(np.unique(spt_mask_c))
         spt_masked_pils = [Image.fromarray(cls.apply_mask(spt_img_c, spt_mask_c, use_colors)) for spt_img_c, spt_mask_c in zip(spt_imgs, spt_masks)]
 
         qry_img = cls.resize(qry_img, qry_org_size)
@@ -110,11 +113,17 @@ class Visualizer:
         cls.save_plt(spt_masked_pils, pred_masked_pil, qry_masked_pil, iou, er, vis_path)
 
     @classmethod
-    def apply_mask(cls, image, mask, color, alpha=0.5):
+    def apply_mask(cls, image, mask, color, alpha=0.99):
         r""" Apply mask to the given image. """
 
-        for c in range(1, cls.way + 1):
-            image[mask == c] = (1 - alpha) * image[mask == c] + alpha * color[c - 1]
+        print("VIS")
+        print(np.unique(mask))
+        if cls.chesapeake:
+            for c in range(1, 7):
+                image[mask == c] = (1 - alpha) * image[mask == c] + alpha * color[c - 1]
+        else:
+            for c in range(1, cls.way + 1):
+                image[mask == c] = (1 - alpha) * image[mask == c] + alpha * color[c - 1]
 
         return image
 
