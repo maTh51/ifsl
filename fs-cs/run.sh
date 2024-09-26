@@ -2,11 +2,11 @@
 
 python main.py --datapath /scratch/dataset/chesapeake/ \
   --benchmark chesapeake \
-  --method asnet \
-  --logpath asnet \
+  --method pfenet \
+  --logpath pfenet \
   --way 5 \
   --shot 1 \
-  --bgclass 2 \
+  --bgclass 1 \
   --bsz 1 \
   --fold 0 \
   --backbone resnet50 \

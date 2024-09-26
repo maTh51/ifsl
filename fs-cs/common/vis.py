@@ -50,8 +50,8 @@ class Visualizer:
         ])
         cls.chesapeake_colors = np.asarray([
                     # [0, 0, 0],       # não existe no dataset
-                    [0, 255, 255],   # agua
-                    # [255, 255, 0],   # floresta
+                    # [0, 255, 255],   # agua
+                    [255, 255, 0],   # floresta
                     [255, 128, 0],     # campo
                     [255, 0, 0],    # terra estéril
                     [127, 0, 255], # impermeável (outro)
