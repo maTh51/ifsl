@@ -2,8 +2,8 @@
 
 python main.py --datapath /scratch/dataset/chesapeake/ \
   --benchmark chesapeake \
-  --method pfenet \
-  --logpath pfenet \
+  --method asnet \
+  --logpath asnet \
   --way 5 \
   --shot 1 \
   --bgclass 1 \

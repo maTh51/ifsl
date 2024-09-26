@@ -152,7 +152,8 @@ class Visualizer:
             axes[i].imshow(spt)
 
         iou_str = 'x' if math.isnan(iou) else f'{iou:.1f}'
-        axes[i + 1].set_title(f'pred\niou:{iou_str}\ner:{er:.1f}')
+        # axes[i + 1].set_title(f'pred\niou:{iou_str}\ner:{er:.1f}')
+        axes[i + 1].set_title('pred')
         axes[i + 1].imshow(pred_masked_pil)
         axes[i + 2].set_title(f'query GT')
         axes[i + 2].imshow(qry_masked_pil)
