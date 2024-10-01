@@ -6,7 +6,7 @@ python main.py --datapath /scratch/dataset/chesapeake/ \
   --logpath asnet \
   --way 5 \
   --shot 1 \
-  --bgclass 1 \
+  --bgclass 2 \
   --bsz 1 \
   --fold 0 \
   --backbone resnet50 \

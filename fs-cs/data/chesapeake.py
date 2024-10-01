@@ -35,32 +35,17 @@ class DatasetCHESAPEAKE (Dataset):
         self.transform = transform
 
         self.bgd = bgd
-        # if not self.bgd:
-        #     self.mask_palette = {
-        #         1: (255, 255, 255),  # Impervious surfaces (white)
-        #         2: (0, 0, 255),  # Buildings (blue)
-        #         3: (0, 255, 255),  # Low vegetation (cyan)
-        #         4: (0, 255, 0),  # Trees (green)
-        #         5: (255, 255, 0),  # Cars (yellow)
-        #         6: (255, 0, 0),  # Clutter (red)
-        #         0: (0, 0, 0)  # Undefined (black)
-        #     }
-        # else:
-        #     self.mask_palette = {
-        #         0:  0,    # não existe no dataset
-        #         1:  1,    # agua
-        #         2:  2,    # floresta
-        #         3:  3,    # campo
-        #         4:  4,    # terra estéril
-        #         5:  5,    # impermeável (outro)
-        #         6:  6,    # impermeável (estrada)
-        #         15: 0,   # sem dados
-        #     }
+        # self.mask_palette = {
+        #     0:  0,    # não existe no dataset
+        #     1:  1,    # agua
+        #     2:  2,    # floresta
+        #     3:  3,    # campo
+        #     4:  4,    # terra estéril
+        #     5:  5,    # impermeável (outro)
+        #     6:  6,    # impermeável (estrada)
+        #     15: 0,   # sem dados
+        # }
 
-
-        # self.class_ids = self.build_class_ids()
-        # self.img_metadata = self.build_img_metadata()
-        # self.img_metadata_classwise = self.build_img_metadata_classwise()
         self.class_ids = [1,2,3,4,5,6]
         if self.bgclass > 0:
             self.class_ids.remove(self.bgclass)
@@ -88,18 +73,6 @@ class DatasetCHESAPEAKE (Dataset):
         query_class_presence = torch.tensor(query_class_presence)
 
         if query_class_presence.int().sum() != (len(torch.unique(query_mask)) - (1 if (self.bgd and 0 in torch.unique(query_mask)) else 0)):
-            print("@@@@@@@@@")
-            print(query_name)
-            # print(torch.unique(query_mask))
-            # print(query_class_presence.int().sum())
-            # print((len(torch.unique(query_mask)) - 1))
-            print(query_class_presence)
-            print(torch.unique(query_mask))
-            print("#######")
-            print(query_class_presence.int().sum())
-            print((len(torch.unique(query_mask))))
-            print(1 if (self.bgd and 0 in torch.unique(query_mask)) else 0)
-            print("**************************************************************")
             print(query_class_presence.int().sum() != (len(torch.unique(query_mask)) - (1 if (self.bgd and 0 in torch.unique(query_mask)) else 0)))
         assert query_class_presence.int().sum() == (len(torch.unique(query_mask)) - (1 if (self.bgd and 0 in torch.unique(query_mask)) else 0))
 
@@ -199,31 +172,11 @@ class DatasetCHESAPEAKE (Dataset):
         return torch.tensor(cv_rast_mask)
 
     def convert_mask(self, np_mask):
-        # height, width = np_mask.shape
-        
-        # # Cria um novo array de zeros com a mesma altura e largura
-        # new_mask = np.zeros((height, width), dtype=np.uint8)
-        
-        # # Mapeia os valores do primeiro canal para novas classes usando o dicionário mask_palette
-        # unique_classes = np.unique(np_mask)
-        # mask_palette_values = np.array([self.mask_palette.get(c, 0) for c in unique_classes], dtype=np.uint8)
-        # class_to_color = dict(zip(unique_classes, mask_palette_values))
-        
-        # # Usa a função np.vectorize para mapear as classes para as novas cores
-        # vectorized_mapping = np.vectorize(class_to_color.get)
-        # new_mask = vectorized_mapping(np_mask)
-        
-        # return new_mask
         transformed_mask = np.copy(np_mask)
         if self.bgclass > 0:
-            # print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
-            # print(np.unique(transformed_mask))
             transformed_mask[transformed_mask == self.bgclass] = 0
-            # print(np.unique(transformed_mask))
             transformed_mask[transformed_mask > self.bgclass] -= 1
-            # print(np.unique(transformed_mask))
-            # print("#############################################")
-            # time.sleep(1)
+        
         return transformed_mask
 
     def sample_episode(self, idx):

@@ -50,8 +50,8 @@ class Visualizer:
         ])
         cls.chesapeake_colors = np.asarray([
                     # [0, 0, 0],       # não existe no dataset
-                    # [0, 255, 255],   # agua
-                    [255, 255, 0],   # floresta
+                    [0, 255, 255],   # agua
+                    # [255, 255, 0],   # floresta
                     [255, 128, 0],     # campo
                     [255, 0, 0],    # terra estéril
                     [127, 0, 255], # impermeável (outro)
@@ -110,14 +110,14 @@ class Visualizer:
         qry_masked_pil = Image.fromarray(cls.apply_mask(qry_img.astype(np.uint8), qry_mask.astype(np.uint8), use_colors))
 
         vis_path = os.path.join(cls.vis_path, f'{batch_idx}_{sample_idx}.jpg')
-        cls.save_plt(spt_masked_pils, pred_masked_pil, qry_masked_pil, iou, er, vis_path)
+        cls.save_plt(spt_masked_pils, pred_masked_pil, qry_masked_pil, iou, er, vis_path, Image.fromarray(qry_img))
 
     @classmethod
-    def apply_mask(cls, image, mask, color, alpha=0.99):
+    def apply_mask(cls, image, mask, color, alpha=0.5):
         r""" Apply mask to the given image. """
 
-        print("VIS")
-        print(np.unique(mask))
+        # print("VIS")
+        # print(np.unique(mask))
         if cls.chesapeake:
             for c in range(1, 7):
                 image[mask == c] = (1 - alpha) * image[mask == c] + alpha * color[c - 1]
@@ -142,21 +142,33 @@ class Visualizer:
         return img.squeeze(0)
 
     @classmethod
-    def save_plt(cls, spt_masked_pils, pred_masked_pil, qry_masked_pil, iou, er, vis_path):
+    def save_plt(cls, spt_masked_pils, pred_masked_pil, qry_masked_pil, iou, er, vis_path, qry_img):
         num_axes = len(spt_masked_pils) + 2
         plt.box(False)
-        fig, axes = plt.subplots(1, num_axes)
+        fig, axes = plt.subplots(1, num_axes+1)
+
+        titles = [
+            'Water',         # water
+            # 'Forest',        # florest
+            'Field',         # field
+            'Barren',        # barren land
+            'Imp. (other)',  # impervious (other)
+            'Imp. (road)'    # impervious (road)
+        ]
 
         for i, spt in enumerate(spt_masked_pils):
-            axes[i].set_title(f'support {i}')
+            # axes[i].set_title(f'support {i}')
+            axes[i].set_title(titles[i])
             axes[i].imshow(spt)
 
         iou_str = 'x' if math.isnan(iou) else f'{iou:.1f}'
         # axes[i + 1].set_title(f'pred\niou:{iou_str}\ner:{er:.1f}')
-        axes[i + 1].set_title('pred')
-        axes[i + 1].imshow(pred_masked_pil)
-        axes[i + 2].set_title(f'query GT')
-        axes[i + 2].imshow(qry_masked_pil)
+        axes[i + 1].set_title('query')
+        axes[i + 1].imshow(qry_img)
+        axes[i + 2].set_title('pred')
+        axes[i + 2].imshow(pred_masked_pil)
+        axes[i + 3].set_title(f'query GT')
+        axes[i + 3].imshow(qry_masked_pil)
         plt.setp(plt.gcf().get_axes(), xticks=[], yticks=[], frame_on=False)
         plt.savefig(vis_path, bbox_inches='tight')
         plt.cla() ; plt.clf() ; plt.close()
