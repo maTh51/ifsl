@@ -197,14 +197,15 @@ class DatasetCHESAPEAKE (Dataset):
         support_names = []
         support_names_c = []
 
+        
+        support_classes = self.class_ids # Todas as classes possíveis menos vazio
+        
         # p encourage the support classes sampled as the query_class by the prob of 0.5
         # p = np.ones([len(self.class_ids)]) / 2. / float(len(self.class_ids) - 1)
         # p[self.class_ids.index(query_class)] = 1 / 2.
         # support_classes = np.random.choice(self.class_ids, self.way, p=p, replace=False).tolist()
-        
-        support_classes = self.class_ids # Todas as classes possíveis menos vazio
         if self.rdn_sup:
-            for sc in range(len(self.class_ids) (+1 if self.bgclass != 0 else +0)):
+            for sc in support_classes:
                 support_names_c = []
                 while True:
                     support_name = np.random.choice(self.support_pool[21], 1, replace=False)[0]
@@ -270,7 +271,7 @@ class DatasetCHESAPEAKE (Dataset):
                 # print(i)
                 # print(len(support_pool[i]))
                 support_pool[21] += support_pool[i]
-                selected_images = random.sample(support_pool[i], 5)
+                selected_images = random.sample(support_pool[i], 20)
                 support_pool[30] += selected_images
 
         for v in support_pool.values():

@@ -205,9 +205,9 @@ class AverageMeter:
 
     def update_f1_metrics(self, pred, target):
         import numpy as np
-        print("EVAL")
-        print(np.unique(pred))
-        print(np.unique(target))
+        # print("EVAL")
+        # print(np.unique(pred))
+        # print(np.unique(target))
         for cls in range(self.nclass):
             true_positive = ((pred == cls) & (target == cls)).sum().item()
             false_positive = ((pred == cls) & (target != cls)).sum().item()

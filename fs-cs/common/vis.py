@@ -51,8 +51,8 @@ class Visualizer:
         cls.chesapeake_colors = np.asarray([
                     # [0, 0, 0],       # não existe no dataset
                     [0, 255, 255],   # agua
-                    # [255, 255, 0],   # floresta
-                    [255, 128, 0],     # campo
+                    [255, 255, 0],   # floresta
+                    # [255, 128, 0],     # campo
                     [255, 0, 0],    # terra estéril
                     [127, 0, 255], # impermeável (outro)
                     [255, 0, 255], # impermeável (estrada)
@@ -97,9 +97,6 @@ class Visualizer:
 
         spt_imgs = [cls.to_numpy(spt_img_c, 'img') for spt_img_c in spt_imgs]
         spt_masks = [cls.to_numpy(spt_mask_c, 'mask') for spt_mask_c in spt_masks]
-        print("Uniques in support before")
-        for spt_img_c, spt_mask_c in zip(spt_imgs, spt_masks):
-            print(np.unique(spt_mask_c))
         spt_masked_pils = [Image.fromarray(cls.apply_mask(spt_img_c, spt_mask_c, use_colors)) for spt_img_c, spt_mask_c in zip(spt_imgs, spt_masks)]
 
         qry_img = cls.resize(qry_img, qry_org_size)
@@ -149,8 +146,8 @@ class Visualizer:
 
         titles = [
             'Water',         # water
-            # 'Forest',        # florest
-            'Field',         # field
+            'Forest',        # florest
+            # 'Field',         # field
             'Barren',        # barren land
             'Imp. (other)',  # impervious (other)
             'Imp. (road)'    # impervious (road)
