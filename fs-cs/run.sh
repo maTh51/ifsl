@@ -12,5 +12,5 @@ python main.py --datapath /scratch/dataset/chesapeake/ \
   --backbone resnet50 \
   --eval \
   --bgd \
-  --rdn_sup \
   # --vis \
+  # --rdn_sup \

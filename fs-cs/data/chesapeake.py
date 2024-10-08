@@ -250,7 +250,7 @@ class DatasetCHESAPEAKE (Dataset):
     # Read query and supports files
     def build_pools(self):
         query_pool = []
-        query_file = os.path.join(self.pool_path, f'4.txt')
+        query_file = os.path.join(self.pool_path, f'querys.txt')
         with open(query_file, 'r') as f:
             query_pool = f.read().split('\n')[:-1]
 
@@ -278,7 +278,7 @@ class DatasetCHESAPEAKE (Dataset):
             print(len(v))
         # return query_pool, support_pool
         # return random.sample(support_pool[21], 100), support_pool
-        return support_pool[30], support_pool
+        return query_pool, support_pool
     
     
     # def build_img_metadata(self):
