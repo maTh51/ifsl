@@ -274,8 +274,8 @@ class DatasetCHESAPEAKE (Dataset):
                 selected_images = random.sample(support_pool[i], 20)
                 support_pool[30] += selected_images
 
-        for v in support_pool.values():
-            print(len(v))
+        # for v in support_pool.values():
+        #     print(len(v))
         # return query_pool, support_pool
         # return random.sample(support_pool[21], 100), support_pool
         return query_pool, support_pool
