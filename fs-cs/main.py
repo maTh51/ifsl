@@ -59,8 +59,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Methods for Integrative Few-Shot Classification and Segmentation')
     parser.add_argument('--datapath', type=str, default='~/datasets', help='Dataset path containing the root dir of pascal & coco')
     parser.add_argument('--method', type=str, default='asnet', choices=['panet', 'pfenet', 'hsnet', 'asnet', 'asnethm'], help='FS-CS methods')
-    parser.add_argument('--benchmark', type=str, default='pascal', choices=['pascal', 'coco', 'vaihingen', 'chesapeake'], help='Experiment benchmark')
+    parser.add_argument('--benchmark', type=str, default='pascal', choices=['pascal', 'coco', 'vaihingen', 'chesapeake', 'oem'], help='Experiment benchmark')
     parser.add_argument('--logpath', type=str, default='', help='Checkpoint saving dir identifier')
+    parser.add_argument('--ckptpath', type=str, default='', help='Checkpoint file or directory to load when using --eval')
     parser.add_argument('--way', type=int, default=1, help='N-way for K-shot evaluation episode')
     parser.add_argument('--shot', type=int, default=1, help='K-shot for N-way K-shot evaluation episode: fixed to 1 for training')
     parser.add_argument('--bsz', type=int, default=12, help='Batch size')
@@ -77,6 +78,31 @@ if __name__ == '__main__':
     parser.add_argument('--bgd', action='store_true', help='With background?')
     parser.add_argument('--rdn_sup', action='store_true', help='Random support images?')
     parser.add_argument('--bgclass', type=int, default=0, help='Background Class')
+    parser.add_argument('--merge_class', type=int, default=None, choices=[1, 2, 3, 4, 5, 6],
+                        help='Vaihingen class ID to merge into class 1 (Imp. Surfaces)')
+    parser.add_argument('--support_strategy', '--oem_support_strategy', dest='support_strategy', type=str,
+                        default='random', choices=['random', 'max_area', 'similarity'],
+                        help='Support sampling strategy at evaluation time')
+    parser.add_argument('--support_area_cache', '--oem_area_cache', dest='support_area_cache', type=str,
+                        default='auto', help='Path to class representativity cache JSON (or auto)')
+    parser.add_argument('--support_similarity_cache', '--oem_similarity_cache', dest='support_similarity_cache', type=str,
+                        default='auto', help='Path to similarity feature index NPZ (or auto)')
+    parser.add_argument('--support_similarity_size', '--oem_similarity_size', dest='support_similarity_size', type=int,
+                        default=32, help='Image resize used to build support similarity feature vectors')
+    parser.add_argument('--oem_train_list', type=str, default='train.txt',
+                        help='OEM train list path (absolute or relative to --datapath)')
+    parser.add_argument('--oem_val_json', type=str, default='val.json',
+                        help='OEM validation JSON path (absolute or relative to --datapath)')
+    parser.add_argument('--oem_test_json', type=str, default='test.json',
+                        help='OEM test JSON path (absolute or relative to --datapath)')
+    parser.add_argument('--oem_crop_size', type=int, default=400,
+                        help='OEM random crop size used in training episodes')
+    parser.add_argument('--oem_sw_enable', action='store_true',
+                        help='Enable OEM sliding-window query inference at test time')
+    parser.add_argument('--oem_sw_tile', type=int, default=400,
+                        help='OEM sliding-window tile size')
+    parser.add_argument('--oem_sw_stride', type=int, default=312,
+                        help='OEM sliding-window stride')
     
     args = parser.parse_args()
 

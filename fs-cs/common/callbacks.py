@@ -113,7 +113,10 @@ class CustomCheckpoint(ModelCheckpoint):
                                                save_last=True)
         # For evaluation, load best_model-v(k).cpkt where k is the max index
         if args.eval:
-            self.modelpath = self.return_best_model_path(self.dirpath, self.filename)
+            if getattr(args, 'ckptpath', ''):
+                self.modelpath = self.resolve_checkpoint_path(args.ckptpath, self.filename)
+            else:
+                self.modelpath = self.return_best_model_path(self.dirpath, self.filename)
             print('evaluating', self.modelpath)
         # For training, set the filename as best_model.ckpt
         # For resuming training, pytorch_lightning will automatically set the filename as best_model-v(k).ckpt
@@ -128,7 +131,15 @@ class CustomCheckpoint(ModelCheckpoint):
         # vers = ['best_model.ckpt'] or
         # vers = ['best_model-v1.ckpt', 'best_model-v2.ckpt', 'best_model.ckpt']
         best_model = vers[-1] if len(vers) == 1 else vers[-2]
-        return os.path.join(self.dirpath, best_model)
+        return os.path.join(dirpath, best_model)
+
+    def resolve_checkpoint_path(self, ckptpath, filename):
+        ckptpath = os.path.expanduser(ckptpath)
+        if os.path.isfile(ckptpath):
+            return ckptpath
+        if os.path.isdir(ckptpath):
+            return self.return_best_model_path(ckptpath, filename)
+        raise FileNotFoundError(f'Checkpoint path does not exist: {ckptpath}')
 
 
 class OnlineLogger(WandbLogger):

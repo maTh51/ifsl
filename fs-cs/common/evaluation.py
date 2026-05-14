@@ -1,6 +1,5 @@
 r""" Evaluation helpers """
 import torch
-from torchmetrics import F1 #torchmetrics 0.3.2 !! (socorro)
 
 class Evaluator:
     @classmethod
@@ -56,9 +55,13 @@ class AverageMeter:
         elif self.benchmark == 'coco':
             self.nclass = 80
         elif self.benchmark == 'vaihingen':
-            self.nclass = way+1 
+            self.nclass = int(max(dataset.class_ids))
         elif self.benchmark == 'chesapeake':
-            self.nclass = way+1 
+            self.nclass = int(max(dataset.class_ids))
+        elif self.benchmark == 'oem':
+            self.nclass = int(max(dataset.class_ids))
+        else:
+            raise ValueError(f'Unsupported benchmark for AverageMeter: {self.benchmark}')
 
         self.total_area_inter = torch.zeros((self.nclass + 1, ), dtype=torch.float32)
         self.total_area_union = torch.zeros((self.nclass + 1, ), dtype=torch.float32)
@@ -72,20 +75,28 @@ class AverageMeter:
         self.cls_loss_count = 0.
         self.cls_er_count = 0.
 
-        self.macro_f1 = 0.
-        self.micro_f1 = 0.
-        self.f1_per_class = torch.tensor([0., 0., 0., 0., 0., 0.])
-        self.f1_count = 0.
-        self.metrics = [{'tp': 0, 'fp': 0, 'fn': 0} for _ in range(self.nclass)]
+        # Episodic segmentation labels are always in [0, way] where 0 is background.
+        self.eval_num_classes = self.way + 1
+        self.confmat = torch.zeros((self.eval_num_classes, self.eval_num_classes), dtype=torch.float64)
 
     def update_seg(self, pred_mask, batch, loss=None):
         ignore_mask = batch.get('query_ignore_idx')
         gt_mask = batch.get('query_mask')
         support_classes = batch.get('support_classes')
 
+        # Always ignore void label in GT when present (e.g., Pascal-style 255).
+        combined_ignore = (gt_mask == self.ignore_index)
         if ignore_mask is not None:
-            pred_mask[ignore_mask == self.ignore_index] = self.ignore_index
-            gt_mask[ignore_mask == self.ignore_index] = self.ignore_index
+            if ignore_mask.dtype == torch.bool:
+                combined_ignore = torch.logical_or(combined_ignore, ignore_mask)
+            else:
+                # Support both Pascal-style (255) and binary (0/1) ignore masks.
+                combined_ignore = torch.logical_or(combined_ignore,
+                                                   torch.logical_or(ignore_mask == self.ignore_index,
+                                                                    ignore_mask > 0))
+
+        pred_mask[combined_ignore] = self.ignore_index
+        gt_mask[combined_ignore] = self.ignore_index
 
         pred_mask, gt_mask, support_classes = pred_mask.cpu(), gt_mask.cpu(), support_classes.cpu()
         class_dicts = self.return_class_mapping_dict(support_classes)
@@ -155,7 +166,13 @@ class AverageMeter:
         return miou * 100.
 
     def compute_cls_er(self):
+        # Backward-compatible name: this value is exact-ratio accuracy (higher is better),
+        # not error rate.
         return self.cls_er_sum / self.cls_er_count * 100. if self.cls_er_count else 0
+
+    def compute_cls_error_rate(self):
+        # True error rate in percentage.
+        return 100. - self.compute_cls_er()
 
     def avg_seg_loss(self):
         return self.seg_loss_sum / self.seg_loss_count if self.seg_loss_count else 0
@@ -180,59 +197,43 @@ class AverageMeter:
 
         return samplewise_er * 100.
 
-    def compute_f1(self, pred_seg, gt_seg):
-        f1 = F1(num_classes= self.nclass, average= "macro", mdmc_average="global")
-        macro = f1(pred_seg, gt_seg)
-        f1 = F1(num_classes= self.nclass, average= "micro", mdmc_average="global")
-        micro = f1(pred_seg, gt_seg)
-        f1 = F1(num_classes= self.nclass, average= "none", mdmc_average="global")
-        per_class = f1(pred_seg, gt_seg)
+    def update_f1_metrics(self, pred, target, ignore_mask=None):
+        pred = pred.to(torch.int64).view(-1)
+        target = target.to(torch.int64).view(-1)
 
-        self.macro_f1 += macro
-        self.micro_f1 += micro
-        self.f1_per_class += per_class
-        self.f1_count += 1.
+        valid = (target >= 0) & (target < self.eval_num_classes)
+        if ignore_mask is not None:
+            ignore_mask = ignore_mask.to(pred.device).view(-1)
+            if ignore_mask.dtype == torch.bool:
+                valid &= ~ignore_mask
+            else:
+                # OEM and related loaders provide binary boundary masks (0/1).
+                valid &= (ignore_mask == 0)
 
-        return macro, micro, per_class
+        pred = pred[valid]
+        target = target[valid]
+        if pred.numel() == 0:
+            return
 
-    def compute_f1_total(self):
-        macro_total = self.macro_f1 / self.f1_count
-        micro_total = self.micro_f1 / self.f1_count
-        per_class_total = self.f1_per_class / self.f1_count
+        # Keep only episodic prediction labels [0..way].
+        valid_pred = (pred >= 0) & (pred < self.eval_num_classes)
+        pred = pred[valid_pred]
+        target = target[valid_pred]
+        if pred.numel() == 0:
+            return
 
-        return macro_total, micro_total, per_class_total
-    
-
-    def update_f1_metrics(self, pred, target):
-        import numpy as np
-        # print("EVAL")
-        # print(np.unique(pred))
-        # print(np.unique(target))
-        for cls in range(self.nclass):
-            true_positive = ((pred == cls) & (target == cls)).sum().item()
-            false_positive = ((pred == cls) & (target != cls)).sum().item()
-            false_negative = ((pred != cls) & (target == cls)).sum().item()
-
-            self.metrics[cls]['tp'] += true_positive
-            self.metrics[cls]['fp'] += false_positive
-            self.metrics[cls]['fn'] += false_negative
+        encoded = target * self.eval_num_classes + pred
+        bins = torch.bincount(encoded, minlength=self.eval_num_classes ** 2)
+        self.confmat += bins.view(self.eval_num_classes, self.eval_num_classes).to(self.confmat.dtype)
 
     def calculate_f1_metrics(self):
-        precisions = []
-        recalls = []
-        f1_scores = []
+        eps = 1e-7
+        tp = torch.diag(self.confmat)
+        fp = self.confmat.sum(dim=0) - tp
+        fn = self.confmat.sum(dim=1) - tp
 
-        for cls in range(self.nclass):
-            tp = self.metrics[cls]['tp']
-            fp = self.metrics[cls]['fp']
-            fn = self.metrics[cls]['fn']
+        precisions = tp / (tp + fp + eps)
+        recalls = tp / (tp + fn + eps)
+        f1_scores = 2 * (precisions * recalls) / (precisions + recalls + eps)
 
-            precision = tp / (tp + fp + 1e-7)
-            recall = tp / (tp + fn + 1e-7)
-            f1_score = 2 * (precision * recall) / (precision + recall + 1e-7)
-
-            precisions.append(precision)
-            recalls.append(recall)
-            f1_scores.append(f1_score)
-        
-        return precisions, recalls, f1_scores
+        return precisions.tolist(), recalls.tolist(), f1_scores.tolist()
