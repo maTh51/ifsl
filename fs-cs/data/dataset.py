@@ -47,12 +47,16 @@ class FSCSDatasetModule(LightningDataModule):
                            'bgd': self.args.bgd,
                            'rdn_sup': self.args.rdn_sup})
             if self.args.benchmark == 'vaihingen':
-                kwargs.update({'merge_class': self.args.merge_class})
+                kwargs.update({'merge_class': self.args.merge_class,
+                               'support_strategy': self.args.support_strategy,
+                               'support_similarity_cache': self.args.support_similarity_cache,
+                               'support_similarity_size': self.args.support_similarity_size})
             if self.args.benchmark == 'chesapeake':
                 kwargs.update({'support_strategy': self.args.support_strategy,
                                'support_area_cache': self.args.support_area_cache,
                                'support_similarity_cache': self.args.support_similarity_cache,
-                               'support_similarity_size': self.args.support_similarity_size})
+                               'support_similarity_size': self.args.support_similarity_size,
+                               'use_infrared': getattr(self.args, 'chesapeake_use_infrared', False)})
         elif self.args.benchmark == 'oem':
             kwargs.update({'bgd': self.args.bgd,
                            'rdn_sup': self.args.rdn_sup,
@@ -63,7 +67,14 @@ class FSCSDatasetModule(LightningDataModule):
                            'support_strategy': self.args.support_strategy,
                            'support_area_cache': self.args.support_area_cache,
                            'support_similarity_cache': self.args.support_similarity_cache,
-                           'support_similarity_size': self.args.support_similarity_size})
+                           'support_similarity_topk_cache': getattr(self.args, 'support_similarity_topk_cache', 'auto'),
+                           'support_similarity_size': self.args.support_similarity_size,
+                           'use_sliding_window': getattr(self.args, 'oem_sw_enable', False),
+                           'eval_classes': getattr(self.args, 'oem_eval_classes', None),
+                           'oem_val_pools': getattr(self.args, 'oem_val_pools', 'oem_val_pools.json'),
+                           'oem_train_pools': getattr(self.args, 'oem_train_pools', 'oem_train_pools.json'),
+                           'oem_sw_tile': getattr(self.args, 'oem_sw_tile', 400),
+                           'oem_sw_stride': getattr(self.args, 'oem_sw_stride', 312)})
         dataset = self.datasets[self.args.benchmark](**kwargs)
         dataloader = DataLoader(dataset, batch_size=self.args.bsz, shuffle=True, num_workers=8)
         return dataloader
@@ -80,12 +91,16 @@ class FSCSDatasetModule(LightningDataModule):
                            'bgd': self.args.bgd,
                            'rdn_sup': self.args.rdn_sup})
             if self.args.benchmark == 'vaihingen':
-                kwargs.update({'merge_class': self.args.merge_class})
+                kwargs.update({'merge_class': self.args.merge_class,
+                               'support_strategy': self.args.support_strategy,
+                               'support_similarity_cache': self.args.support_similarity_cache,
+                               'support_similarity_size': self.args.support_similarity_size})
             if self.args.benchmark == 'chesapeake':
                 kwargs.update({'support_strategy': self.args.support_strategy,
                                'support_area_cache': self.args.support_area_cache,
                                'support_similarity_cache': self.args.support_similarity_cache,
-                               'support_similarity_size': self.args.support_similarity_size})
+                               'support_similarity_size': self.args.support_similarity_size,
+                               'use_infrared': getattr(self.args, 'chesapeake_use_infrared', False)})
         elif self.args.benchmark == 'oem':
             kwargs.update({'bgd': self.args.bgd,
                            'rdn_sup': self.args.rdn_sup,
@@ -96,17 +111,25 @@ class FSCSDatasetModule(LightningDataModule):
                            'support_strategy': self.args.support_strategy,
                            'support_area_cache': self.args.support_area_cache,
                            'support_similarity_cache': self.args.support_similarity_cache,
-                           'support_similarity_size': self.args.support_similarity_size})
+                           'support_similarity_topk_cache': getattr(self.args, 'support_similarity_topk_cache', 'auto'),
+                           'support_similarity_size': self.args.support_similarity_size,
+                           'use_sliding_window': getattr(self.args, 'oem_sw_enable', False),
+                           'eval_classes': getattr(self.args, 'oem_eval_classes', None),
+                           'oem_val_pools': getattr(self.args, 'oem_val_pools', 'oem_val_pools.json'),
+                           'oem_train_pools': getattr(self.args, 'oem_train_pools', 'oem_train_pools.json'),
+                           'oem_sw_tile': getattr(self.args, 'oem_sw_tile', 400),
+                           'oem_sw_stride': getattr(self.args, 'oem_sw_stride', 312)})
 
         dataset = self.datasets[self.args.benchmark](**kwargs)
         dataloader = DataLoader(dataset, batch_size=1, shuffle=False, num_workers=16)
         return dataloader
 
     def test_dataloader(self):
+        split = self.args.oem_eval_split if self.args.benchmark == 'oem' else 'val'
         kwargs = {'datapath': self.datapath,
                   'fold': self.args.fold,
                   'transform': self.transform,
-                  'split': 'test' if self.args.benchmark == 'oem' else 'val',
+                  'split': split,
                   'way': self.args.way,
                   'shot': self.args.shot}
 
@@ -115,12 +138,16 @@ class FSCSDatasetModule(LightningDataModule):
                            'bgd': self.args.bgd,
                            'rdn_sup': self.args.rdn_sup})
             if self.args.benchmark == 'vaihingen':
-                kwargs.update({'merge_class': self.args.merge_class})
+                kwargs.update({'merge_class': self.args.merge_class,
+                               'support_strategy': self.args.support_strategy,
+                               'support_similarity_cache': self.args.support_similarity_cache,
+                               'support_similarity_size': self.args.support_similarity_size})
             if self.args.benchmark == 'chesapeake':
                 kwargs.update({'support_strategy': self.args.support_strategy,
                                'support_area_cache': self.args.support_area_cache,
                                'support_similarity_cache': self.args.support_similarity_cache,
-                               'support_similarity_size': self.args.support_similarity_size})
+                               'support_similarity_size': self.args.support_similarity_size,
+                               'use_infrared': getattr(self.args, 'chesapeake_use_infrared', False)})
         elif self.args.benchmark == 'oem':
             kwargs.update({'bgd': self.args.bgd,
                            'rdn_sup': self.args.rdn_sup,
@@ -131,7 +158,11 @@ class FSCSDatasetModule(LightningDataModule):
                            'support_strategy': self.args.support_strategy,
                            'support_area_cache': self.args.support_area_cache,
                            'support_similarity_cache': self.args.support_similarity_cache,
-                           'support_similarity_size': self.args.support_similarity_size})
+                           'support_similarity_topk_cache': getattr(self.args, 'support_similarity_topk_cache', 'auto'),
+                           'support_similarity_size': self.args.support_similarity_size,
+                           'use_sliding_window': getattr(self.args, 'oem_sw_enable', False),
+                           'eval_classes': getattr(self.args, 'oem_eval_classes', None),
+                           'oem_val_pools': getattr(self.args, 'oem_val_pools', 'oem_val_pools.json')})
 
         dataset = self.datasets[self.args.benchmark](**kwargs)
         dataloader = DataLoader(dataset, batch_size=1, shuffle=False, num_workers=16)

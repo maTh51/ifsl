@@ -20,7 +20,7 @@ class DatasetCHESAPEAKE (Dataset):
     """
     def __init__(self, datapath, fold, transform, split, way, shot, bgclass, bgd, rdn_sup,
                  support_strategy='random', support_area_cache='auto',
-                 support_similarity_cache='auto', support_similarity_size=32):
+                 support_similarity_cache='auto', support_similarity_size=32, use_infrared=False):
         self.split = 'val' if split in ['val', 'test'] else 'trn'
         self.nfolds = 1
         self.nclass = 6 - (1 if bgclass != 0 else -0)
@@ -61,7 +61,8 @@ class DatasetCHESAPEAKE (Dataset):
         self.rdn_sup = rdn_sup
 
         self.support_strategy = support_strategy
-        valid_strategies = {'random', 'max_area', 'similarity'}
+        self.use_infrared = bool(use_infrared)
+        valid_strategies = {'random', 'max_area', 'similarity', 'similarity_global'}
         if self.support_strategy not in valid_strategies:
             raise ValueError(f'Invalid support strategy={self.support_strategy}. Choices: {sorted(valid_strategies)}')
 
@@ -76,7 +77,7 @@ class DatasetCHESAPEAKE (Dataset):
             area_cache_path = self.resolve_cache_path(support_area_cache, 'chesapeake_class_representativity.json')
             self.class_representativity = self.load_or_build_class_representativity(area_cache_path)
 
-        if self.split == 'val' and self.support_strategy == 'similarity':
+        if self.split == 'val' and self.support_strategy in ('similarity', 'similarity_global'):
             sim_cache_path = self.resolve_cache_path(support_similarity_cache, 'chesapeake_similarity_index.npz')
             (self.similarity_entries,
              self.similarity_features,
@@ -187,10 +188,17 @@ class DatasetCHESAPEAKE (Dataset):
         dims = dims.split(",")
         window = Window(int(dims[0]), int(dims[1]), 400, 400)
         with rio.open(os.path.join(self.img_path, path.replace( "lc.tif", "naip-new.tif"))) as src:
-            red = src.read(1, window=window)
-            green = src.read(2, window=window)
-            blue = src.read(3, window=window)
-            rgb = np.dstack((red, green, blue))
+            # If requested and available, replace red channel with infrared (band 4)
+            if self.use_infrared and getattr(src, 'count', 0) >= 4:
+                infrared = src.read(4, window=window)
+                green = src.read(2, window=window)
+                blue = src.read(3, window=window)
+                rgb = np.dstack((infrared, green, blue))
+            else:
+                red = src.read(1, window=window)
+                green = src.read(2, window=window)
+                blue = src.read(3, window=window)
+                rgb = np.dstack((red, green, blue))
         if rgb.dtype != np.uint8:
             rgb = np.clip(rgb, 0, 255).astype(np.uint8)
         return rgb
@@ -236,6 +244,7 @@ class DatasetCHESAPEAKE (Dataset):
 
         # 3-way 2-shot support_names: [[c1_1, c1_2], [c2_1, c2_2], [c3_1, c3_2]]
         support_names = []
+        global_similarity_chunks = None
 
         if self.way == 1:
             support_classes = [query_class]
@@ -262,14 +271,23 @@ class DatasetCHESAPEAKE (Dataset):
                 return self.sample_similarity_support(pool, query_name, shot)
             return sample_from_pool(pool, query_name, shot)
 
+        if self.split == 'val' and self.support_strategy == 'similarity_global':
+            total_needed = int(self.way) * int(self.shot)
+            global_list = self.sample_similarity_global(query_name, total_needed)
+            global_similarity_chunks = [global_list[i * int(self.shot):(i + 1) * int(self.shot)] for i in range(int(self.way))]
+
         if self.rdn_sup:
             for _ in support_classes:
                 support_names.append(select_support(self.support_pool[21], query_name, self.shot, class_id=None))
         else:
-            for sc in support_classes:
-                if len(self.support_pool[sc]) == 0:
-                    raise RuntimeError(f'Empty support pool for class {sc} in {self.pool_path}')
-                support_names.append(select_support(self.support_pool[sc], query_name, self.shot, class_id=sc))
+            if global_similarity_chunks is not None:
+                for chunk in global_similarity_chunks:
+                    support_names.append(chunk)
+            else:
+                for sc in support_classes:
+                    if len(self.support_pool[sc]) == 0:
+                        raise RuntimeError(f'Empty support pool for class {sc} in {self.pool_path}')
+                    support_names.append(select_support(self.support_pool[sc], query_name, self.shot, class_id=sc))
 
         return query_name, support_names, support_classes
 
@@ -396,6 +414,34 @@ class DatasetCHESAPEAKE (Dataset):
         if len(ranked_names) == 1:
             return ranked_names * shot
         return ranked_names + np.random.choice(ranked_names, shot - len(ranked_names), replace=True).tolist()
+
+    def sample_similarity_global(self, query_name, total):
+        candidates = [name for name in self.support_pool[21] if name != query_name]
+        if not candidates:
+            candidates = list(self.support_pool[21])
+        if not candidates:
+            raise RuntimeError('Empty support candidates while sampling similarity_global support')
+
+        query_feat = self.get_query_feature(query_name)
+        candidate_pairs = [(name, self.similarity_index[name]) for name in candidates if name in self.similarity_index]
+        candidate_indices = [idx for _, idx in candidate_pairs]
+        if len(candidate_indices) == 0:
+            replace = len(candidates) < total
+            return np.random.choice(candidates, total, replace=replace).tolist()
+
+        candidate_feats = self.similarity_features[candidate_indices]
+        sims = np.dot(candidate_feats, query_feat)
+        ranked_pos = np.argsort(-sims)
+        ranked_names = [candidate_pairs[i][0] for i in ranked_pos]
+
+        if len(ranked_names) >= total:
+            return ranked_names[:total]
+        if len(ranked_names) == 0:
+            replace = len(candidates) < total
+            return np.random.choice(candidates, total, replace=replace).tolist()
+        if len(ranked_names) == 1:
+            return ranked_names * total
+        return ranked_names + np.random.choice(ranked_names, total - len(ranked_names), replace=True).tolist()
 
     def get_query_feature(self, query_name):
         if query_name not in self.query_feature_cache:

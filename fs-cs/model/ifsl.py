@@ -100,9 +100,7 @@ class iFSLModule(pl.LightningModule):
         print(f'{space}[{split}] ep: {self.current_epoch:>3}| {split}/loss: {loss:.3f} | {split}/miou: {miou:.3f} | {split}/er(exact): {er:.3f} | {split}/error_rate: {error_rate:.3f}')
 
     def _is_oem_sliding_enabled(self, batch):
-        return (self.args.benchmark == 'oem'
-                and getattr(self.args, 'oem_sw_enable', False)
-                and batch.get('query_img_raw') is not None)
+        return False
 
     def _sliding_positions(self, length, tile, stride):
         if length <= tile:
@@ -169,7 +167,23 @@ class iFSLModule(pl.LightningModule):
             sample_batch = self._build_single_sample_batch(batch, sample_idx)
             pred_cls_sample, pred_seg_sample = self.predict_mask_nshot(sample_batch, nshot)
 
-            raw_query = batch['query_img_raw'][sample_idx]
+            # Defensive: if this sample doesn't have a full raw query (e.g., tile-cropped episode),
+            # or its raw query is smaller/equal than the tile, skip sliding aggregation and
+            # use the single-shot prediction `pred_seg_sample` as-is.
+            raw_q_all = batch.get('query_img_raw')
+            raw_query = None
+            if raw_q_all is None:
+                raw_query = None
+            elif torch.is_tensor(raw_q_all):
+                raw_query = raw_q_all[sample_idx]
+            elif isinstance(raw_q_all, (list, tuple)):
+                raw_query = raw_q_all[sample_idx]
+
+            if raw_query is None:
+                pred_cls_all.append(pred_cls_sample.squeeze(0))
+                pred_seg_all.append(pred_seg_sample.squeeze(0))
+                continue
+
             query_h, query_w = int(raw_query.shape[-2]), int(raw_query.shape[-1])
             if query_h <= tile and query_w <= tile:
                 pred_cls_all.append(pred_cls_sample.squeeze(0))

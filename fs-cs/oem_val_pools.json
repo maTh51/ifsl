@@ -1,586 +1,703 @@
 {
     "2": [
         {
+            "split": "valset",
             "image_name": "lohur_7.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lohur_7.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lohur_7.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "lohur_7.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lohur_7.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "monrovia_29.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "monrovia_29.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "monrovia_29.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "monrovia_29.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "monrovia_29.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "al_qurnah_62.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "al_qurnah_62.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "svaneti_13.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "svaneti_13.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "svaneti_13.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "svaneti_13.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "svaneti_13.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "svaneti_13.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "svaneti_13.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "svaneti_13.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "svaneti_13.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "kyoto_18.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_18.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lohur_11.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lohur_11.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "lohur_11.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lohur_11.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lohur_11.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "maputo_6.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "maputo_6.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "maputo_6.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "maputo_6.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "lohur_29.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lohur_29.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lohur_29.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "lohur_29.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lohur_29.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lohur_29.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "lohur_29.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lohur_29.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lohur_29.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "tonga_64.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "tonga_64.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tonga_64.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tonga_64.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "ngaoundere_36.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "ngaoundere_36.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "ngaoundere_36.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "ngaoundere_36.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "ngaoundere_36.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "ngaoundere_36.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "ngaoundere_36.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "ngaoundere_36.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "ngaoundere_36.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "slaskie_28.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "slaskie_28.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "slaskie_28.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "slaskie_28.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "dolnoslaskie_38.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "dolnoslaskie_38.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "dolnoslaskie_38.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "dolnoslaskie_38.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "dolnoslaskie_38.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "muenster_60.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "muenster_60.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "duesseldorf_58.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "duesseldorf_58.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "duesseldorf_58.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "duesseldorf_58.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "santiago_62.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "santiago_62.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "santiago_62.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "santiago_62.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "santiago_62.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "santiago_62.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "santiago_62.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "shanghai_65.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "shanghai_26.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lubuskie_23.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lubuskie_23.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lubuskie_23.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "lubuskie_23.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lubuskie_23.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lubuskie_23.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "lubuskie_23.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lubuskie_23.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lubuskie_23.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "accra_29.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "accra_29.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "accra_29.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "accra_29.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "bielefeld_69.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "bielefeld_69.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "bielefeld_69.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "bielefeld_69.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_22.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_22.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_22.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_22.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "kyoto_50.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_50.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_50.tif",
             "y": 624,
             "x": 0
@@ -588,241 +705,289 @@
     ],
     "4": [
         {
+            "split": "valset",
             "image_name": "lohur_7.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lohur_7.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lohur_7.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "lohur_7.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lohur_7.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lohur_7.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "lohur_7.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lohur_7.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lohur_7.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "monrovia_29.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "svaneti_13.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "svaneti_13.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "svaneti_13.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "svaneti_13.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "svaneti_13.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "svaneti_13.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "kyoto_18.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_18.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_18.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_18.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "kyoto_18.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "lohur_11.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lohur_11.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lohur_11.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "lohur_11.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lohur_11.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lohur_11.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "lohur_11.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lohur_11.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lohur_11.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "kyoto_68.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_68.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_68.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lohur_29.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lohur_29.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "ngaoundere_36.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "ngaoundere_36.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "ngaoundere_36.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "ngaoundere_36.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "ngaoundere_36.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "slaskie_28.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "slaskie_28.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "muenster_60.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "muenster_60.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "muenster_60.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "muenster_60.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "bielefeld_69.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "bielefeld_69.tif",
             "y": 312,
             "x": 312
@@ -830,336 +995,403 @@
     ],
     "1": [
         {
+            "split": "valset",
             "image_name": "monrovia_29.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "monrovia_29.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "monrovia_29.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "monrovia_29.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "monrovia_29.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "monrovia_29.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "monrovia_29.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "monrovia_29.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "monrovia_29.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "svaneti_13.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "svaneti_13.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "svaneti_13.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lohur_11.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "maputo_6.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "kyoto_68.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "lohur_29.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lohur_29.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lohur_29.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "lohur_29.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lohur_29.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lohur_29.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "lohur_29.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lohur_29.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "ngaoundere_36.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "ngaoundere_36.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "slaskie_28.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "dolnoslaskie_38.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "dolnoslaskie_38.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "muenster_60.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "muenster_60.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "muenster_60.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "duesseldorf_58.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "duesseldorf_58.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "duesseldorf_58.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_10.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "santiago_62.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "santiago_62.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "santiago_62.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "lubuskie_23.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lubuskie_23.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lubuskie_23.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "lubuskie_23.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "accra_29.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "accra_29.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "accra_29.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "bielefeld_69.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "bielefeld_69.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "bielefeld_69.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "bielefeld_69.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_22.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_22.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "kyoto_50.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_50.tif",
             "y": 624,
             "x": 0
@@ -1167,116 +1399,139 @@
     ],
     "6": [
         {
+            "split": "valset",
             "image_name": "monrovia_29.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "monrovia_29.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "monrovia_29.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "monrovia_29.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "rio_7.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tonga_64.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "tonga_64.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tonga_64.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "slaskie_28.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "slaskie_28.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "slaskie_28.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "slaskie_28.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "slaskie_28.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "slaskie_28.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "slaskie_28.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "slaskie_28.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "lima_15.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "lima_15.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lima_15.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lima_15.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "lubuskie_23.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 624,
             "x": 312
@@ -1284,121 +1539,145 @@
     ],
     "9": [
         {
+            "split": "valset",
             "image_name": "monrovia_29.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "monrovia_29.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "monrovia_29.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "monrovia_29.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "monrovia_29.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "monrovia_29.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "monrovia_29.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_21.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_21.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "dolnoslaskie_38.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "dolnoslaskie_38.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "dolnoslaskie_38.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "dolnoslaskie_38.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "dolnoslaskie_38.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "dolnoslaskie_38.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "dolnoslaskie_38.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "dolnoslaskie_38.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "dolnoslaskie_38.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_10.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "santiago_62.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "shanghai_26.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "accra_29.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_22.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_22.tif",
             "y": 312,
             "x": 312
@@ -1406,691 +1685,829 @@
     ],
     "0": [
         {
+            "split": "valset",
             "image_name": "monrovia_29.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "monrovia_29.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "al_qurnah_62.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "al_qurnah_62.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "al_qurnah_62.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "al_qurnah_62.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "al_qurnah_62.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "al_qurnah_62.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "al_qurnah_62.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "al_qurnah_62.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "al_qurnah_62.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "svaneti_13.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "svaneti_13.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_18.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_18.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_18.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "kyoto_18.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "kyoto_18.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_18.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_18.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "maputo_6.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "maputo_6.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "maputo_6.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "maputo_6.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "maputo_6.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "maputo_6.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "maputo_6.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "maputo_6.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "maputo_6.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "kyoto_68.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_68.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_68.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "kyoto_68.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_68.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_68.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "kyoto_68.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_68.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_68.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_21.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_21.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_21.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_21.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_65.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_65.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_65.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "kyoto_65.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_65.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_65.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "kyoto_65.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_65.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_65.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "lohur_29.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lohur_29.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lohur_29.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "lohur_29.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tonga_64.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tonga_64.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tonga_64.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "tonga_64.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tonga_64.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tonga_64.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "tonga_64.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tonga_64.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tonga_64.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "ngaoundere_36.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "slaskie_28.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lima_15.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lima_15.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lima_15.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "lima_15.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lima_15.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lima_15.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "lima_15.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lima_15.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lima_15.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "duesseldorf_58.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "duesseldorf_58.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "duesseldorf_58.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "duesseldorf_58.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_10.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_10.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_10.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_10.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "santiago_62.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "santiago_62.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "santiago_62.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "santiago_62.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "santiago_62.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "santiago_62.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "santiago_62.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "shanghai_65.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "shanghai_26.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lubuskie_23.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lubuskie_23.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "accra_29.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "accra_29.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "accra_29.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "accra_29.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "accra_29.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "accra_29.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "accra_29.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "accra_29.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "accra_29.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "bielefeld_69.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "bielefeld_69.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "bielefeld_69.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "bielefeld_69.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_22.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_22.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_22.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_22.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "kyoto_50.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_50.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_50.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "kyoto_50.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_50.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_50.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "kyoto_50.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_50.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_50.tif",
             "y": 624,
             "x": 624
@@ -2098,496 +2515,595 @@
     ],
     "7": [
         {
+            "split": "valset",
             "image_name": "monrovia_29.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "monrovia_29.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "al_qurnah_62.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "al_qurnah_62.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "al_qurnah_62.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "al_qurnah_62.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "al_qurnah_62.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "al_qurnah_62.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "al_qurnah_62.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "svaneti_13.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "svaneti_13.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "svaneti_13.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "svaneti_13.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "svaneti_13.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_18.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_18.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_18.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "kyoto_18.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_18.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "maputo_6.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "maputo_6.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "maputo_6.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_68.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "kyoto_68.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_21.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_21.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_21.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_21.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_65.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_65.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_65.tif",
-            "y": 0,
-            "x": 624
-        },
-        {
-            "image_name": "kyoto_65.tif",
-            "y": 312,
-            "x": 0
-        },
-        {
-            "image_name": "kyoto_65.tif",
-            "y": 312,
-            "x": 312
-        },
-        {
-            "image_name": "kyoto_65.tif",
-            "y": 312,
-            "x": 624
-        },
-        {
-            "image_name": "kyoto_65.tif",
-            "y": 624,
-            "x": 0
-        },
-        {
-            "image_name": "kyoto_65.tif",
-            "y": 624,
-            "x": 312
-        },
-        {
-            "image_name": "kyoto_65.tif",
-            "y": 624,
-            "x": 624
-        },
-        {
-            "image_name": "lohur_29.tif",
-            "y": 0,
-            "x": 0
-        },
-        {
-            "image_name": "lohur_29.tif",
-            "y": 0,
-            "x": 312
-        },
-        {
-            "image_name": "lohur_29.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
+            "image_name": "kyoto_65.tif",
+            "y": 312,
+            "x": 0
+        },
+        {
+            "split": "valset",
+            "image_name": "kyoto_65.tif",
+            "y": 312,
+            "x": 312
+        },
+        {
+            "split": "valset",
+            "image_name": "kyoto_65.tif",
+            "y": 312,
+            "x": 624
+        },
+        {
+            "split": "valset",
+            "image_name": "kyoto_65.tif",
+            "y": 624,
+            "x": 0
+        },
+        {
+            "split": "valset",
+            "image_name": "kyoto_65.tif",
+            "y": 624,
+            "x": 312
+        },
+        {
+            "split": "valset",
+            "image_name": "kyoto_65.tif",
+            "y": 624,
+            "x": 624
+        },
+        {
+            "split": "valset",
+            "image_name": "lohur_29.tif",
+            "y": 0,
+            "x": 0
+        },
+        {
+            "split": "valset",
+            "image_name": "lohur_29.tif",
+            "y": 0,
+            "x": 312
+        },
+        {
+            "split": "valset",
+            "image_name": "lohur_29.tif",
+            "y": 0,
+            "x": 624
+        },
+        {
+            "split": "valset",
             "image_name": "lohur_29.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lohur_29.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lohur_29.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lohur_29.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tonga_64.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tonga_64.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tonga_64.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tonga_64.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tonga_64.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "tonga_64.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lima_15.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lima_15.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lima_15.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "lima_15.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lima_15.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lima_15.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "lima_15.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "duesseldorf_58.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "duesseldorf_58.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "duesseldorf_58.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_10.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_10.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_10.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_10.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "shanghai_65.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lubuskie_23.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lubuskie_23.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "accra_29.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "accra_29.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "accra_29.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "accra_29.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "accra_29.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "accra_29.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "accra_29.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tonga_48.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "kyoto_50.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_50.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_50.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "kyoto_50.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_50.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_50.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "kyoto_50.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_50.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_50.tif",
             "y": 624,
             "x": 624
@@ -2595,341 +3111,409 @@
     ],
     "5": [
         {
+            "split": "valset",
             "image_name": "al_qurnah_62.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_18.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_18.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_18.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "kyoto_18.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_18.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_18.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "kyoto_18.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_18.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "maputo_6.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "maputo_6.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "maputo_6.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "maputo_6.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "maputo_6.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_68.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_68.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_68.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "kyoto_68.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_68.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "kyoto_68.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_68.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_21.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_21.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_65.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_65.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_65.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "kyoto_65.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_65.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_65.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "kyoto_65.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_65.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_65.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "lohur_29.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lohur_29.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "tonga_64.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tonga_64.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lima_15.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lima_15.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lima_15.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "lima_15.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "rotterdam_10.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "santiago_62.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "santiago_62.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "santiago_62.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "santiago_62.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "santiago_62.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "santiago_62.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "santiago_62.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "santiago_62.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "shanghai_26.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "bielefeld_69.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "bielefeld_69.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "bielefeld_69.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tokyo_63.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_50.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_50.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_50.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "kyoto_50.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_50.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_50.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "kyoto_50.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "kyoto_50.tif",
             "y": 624,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_50.tif",
             "y": 624,
             "x": 624
@@ -2937,26 +3521,31 @@
     ],
     "11": [
         {
+            "split": "valset",
             "image_name": "svaneti_13.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "svaneti_13.tif",
             "y": 0,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "kyoto_18.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "lohur_11.tif",
             "y": 624,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "shanghai_65.tif",
             "y": 0,
             "x": 0
@@ -2964,36 +3553,43 @@
     ],
     "3": [
         {
+            "split": "valset",
             "image_name": "svaneti_13.tif",
             "y": 624,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "rio_7.tif",
             "y": 0,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "tonga_64.tif",
             "y": 0,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "lima_15.tif",
             "y": 312,
             "x": 624
         },
         {
+            "split": "valset",
             "image_name": "santiago_62.tif",
             "y": 312,
             "x": 0
         },
         {
+            "split": "valset",
             "image_name": "santiago_62.tif",
             "y": 312,
             "x": 312
         },
         {
+            "split": "valset",
             "image_name": "santiago_62.tif",
             "y": 312,
             "x": 624

@@ -30,26 +30,34 @@ TRAIN_NITER=200
 # ---------------------------------
 # Eval configuration (cross-dataset)
 # ---------------------------------
-EVAL_METHODS=("panet" "hsnet" "asnet" "pfenet")
+EVAL_METHODS=("pfenet" "panet" "hsnet" "asnet")
 # Optional override for checkpoint location:
 # - Empty: auto-resolve as logs/pascal/fold{FOLD}/{BACKBONE}/{method}
 # - Fixed path: use same checkpoint for all methods
 # - Template path: can use {method} placeholder
 #   Example: logs/pascal/fold0/resnet101/{method}
 CKPTPATH=""
-EVAL_BENCHMARKS=("oem")
-EVAL_WAYS=(1 2)
+EVAL_BENCHMARKS=("chesapeake")
+EVAL_WAYS=(1 2 6)
 EVAL_SHOTS=(1 5)
 EVAL_BGCLASSES=(0)
 EVAL_BSZ=16
-EVAL_SUPPORT_STRATEGIES=("random" "similarity" "max_area")
+EVAL_SUPPORT_STRATEGIES=("random" "similarity_global" "similarity" "max_area")
 EVAL_SUPPORT_AREA_CACHE="auto"             # auto | relative path in pools | absolute path
 EVAL_SUPPORT_SIMILARITY_CACHE="auto"       # auto | relative path in pools | absolute path
+EVAL_SUPPORT_SIMILARITY_TOPK_CACHE="auto"   # auto | relative path in pools | absolute path
 EVAL_SUPPORT_SIMILARITY_SIZE=32
-EVAL_OEM_SPLIT="val"                       # val | test
 EVAL_OEM_VAL_JSON="val.json"
 EVAL_OEM_TEST_JSON="test.json"
+EVAL_OEM_VAL_POOLS="$PWD/oem_val_pools.json"
+EVAL_OEM_SPLIT="val"
+EVAL_OEM_SIMILARITY_CACHE="$OEM_DATAPATH/pools/oem_similarity_index_tiles_v2_${EVAL_OEM_SPLIT}.npz"
+EVAL_OEM_SIMILARITY_TOPK_CACHE="$OEM_DATAPATH/pools/oem_similarity_top20_${EVAL_OEM_SPLIT}.json"
+EVAL_OEM_CLASSES=(2 5 6 7) # Grupo 1 - Bem separado
+# EVAL_OEM_CLASSES=(2 1 4 6) # Grupo 2 - Classes mais semelhantes entre si
+EVAL_OEM_SW_ENABLE=true
 VAIHINGEN_MERGE_CLASSES=(6)           # None: 6 classes | 6: merge Clutter into Imp.Surfaces
+EVAL_CHESAPEAKE_USE_INFRARED=true
 
 timestamp() {
   date +%Y%m%d_%H%M%S
@@ -201,7 +209,7 @@ run_eval_matrix() {
                 fi
 
                 local outdir
-                outdir="experiments/eval/${benchmark}/${method}/${strategy}/way${effective_way}_shot${shot}_bgclass${bgclass}${merge_suffix}_${run_stamp}"
+                outdir="experiments/eval/${benchmark}/channel/${method}/${strategy}/way${effective_way}_shot${shot}_bgclass${bgclass}${merge_suffix}_${run_stamp}"
                 mkdir -p "$outdir"
                 local logfile="${outdir}/eval.log"
 
@@ -221,6 +229,7 @@ run_eval_matrix() {
                   --support_strategy "$strategy"
                   --support_area_cache "$EVAL_SUPPORT_AREA_CACHE"
                   --support_similarity_cache "$EVAL_SUPPORT_SIMILARITY_CACHE"
+                  --support_similarity_topk_cache "$EVAL_SUPPORT_SIMILARITY_TOPK_CACHE"
                   --support_similarity_size "$EVAL_SUPPORT_SIMILARITY_SIZE"
                   --eval
                 )
@@ -229,6 +238,22 @@ run_eval_matrix() {
                   cmd+=(--oem_eval_split "$EVAL_OEM_SPLIT")
                   cmd+=(--oem_val_json "$EVAL_OEM_VAL_JSON")
                   cmd+=(--oem_test_json "$EVAL_OEM_TEST_JSON")
+                  cmd+=(--oem_val_pools "$EVAL_OEM_VAL_POOLS")
+                  if [[ "$strategy" == "similarity" || "$strategy" == "similarity_global" ]]; then
+                    cmd+=(--support_similarity_cache "$EVAL_OEM_SIMILARITY_CACHE")
+                    cmd+=(--support_similarity_topk_cache "$EVAL_OEM_SIMILARITY_TOPK_CACHE")
+                  fi
+                  if [[ "$EVAL_OEM_SW_ENABLE" == "true" ]]; then
+                    cmd+=(--oem_sw_enable)
+                  fi
+                  if [[ ${#EVAL_OEM_CLASSES[@]} -gt 0 ]]; then
+                    cmd+=(--oem_eval_classes "${EVAL_OEM_CLASSES[@]}")
+                  fi
+                fi
+
+                # Add chesapeake infrared flag
+                if [[ "$benchmark" == "chesapeake" && "$EVAL_CHESAPEAKE_USE_INFRARED" == "true" ]]; then
+                  cmd+=(--chesapeake_use_infrared)
                 fi
 
                 # Add merge_class parameter for vaihingen

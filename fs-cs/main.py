@@ -81,12 +81,14 @@ if __name__ == '__main__':
     parser.add_argument('--merge_class', type=int, default=None, choices=[1, 2, 3, 4, 5, 6],
                         help='Vaihingen class ID to merge into class 1 (Imp. Surfaces)')
     parser.add_argument('--support_strategy', '--oem_support_strategy', dest='support_strategy', type=str,
-                        default='random', choices=['random', 'max_area', 'similarity'],
+                        default='random', choices=['random', 'max_area', 'min_area', 'similarity', 'similarity_global'],
                         help='Support sampling strategy at evaluation time')
     parser.add_argument('--support_area_cache', '--oem_area_cache', dest='support_area_cache', type=str,
                         default='auto', help='Path to class representativity cache JSON (or auto)')
     parser.add_argument('--support_similarity_cache', '--oem_similarity_cache', dest='support_similarity_cache', type=str,
                         default='auto', help='Path to similarity feature index NPZ (or auto)')
+    parser.add_argument('--support_similarity_topk_cache', '--oem_similarity_topk_cache', dest='support_similarity_topk_cache', type=str,
+                        default='auto', help='Path to precomputed top-K similarity JSON (or auto)')
     parser.add_argument('--support_similarity_size', '--oem_similarity_size', dest='support_similarity_size', type=int,
                         default=32, help='Image resize used to build support similarity feature vectors')
     parser.add_argument('--oem_train_list', type=str, default='train.txt',
@@ -97,12 +99,22 @@ if __name__ == '__main__':
                         help='OEM test JSON path (absolute or relative to --datapath)')
     parser.add_argument('--oem_crop_size', type=int, default=400,
                         help='OEM random crop size used in training episodes')
+    parser.add_argument('--oem_val_pools', type=str, default='oem_val_pools.json',
+                        help='OEM sliding-window pool JSON path (absolute or relative to --datapath)')
+    parser.add_argument('--oem_train_pools', type=str, default='oem_train_pools.json',
+                        help='OEM support pool JSON path (absolute or relative to --datapath)')
+    parser.add_argument('--oem_eval_classes', type=int, nargs='+', default=None,
+                        help='OEM class IDs to keep during evaluation, e.g. 2 3 5 7')
+    parser.add_argument('--oem_eval_split', type=str, default='val', choices=['val', 'test'],
+                        help='OEM split used at eval time')
     parser.add_argument('--oem_sw_enable', action='store_true',
                         help='Enable OEM sliding-window query inference at test time')
     parser.add_argument('--oem_sw_tile', type=int, default=400,
                         help='OEM sliding-window tile size')
     parser.add_argument('--oem_sw_stride', type=int, default=312,
                         help='OEM sliding-window stride')
+    parser.add_argument('--chesapeake_use_infrared', action='store_true',
+                        help='Replace the red channel with the infrared band for Chesapeake images')
     
     args = parser.parse_args()
 

@@ -14,7 +14,8 @@ class DatasetVAIHINGEN (Dataset):
     FS-CS Vaihingen dataset of which split follows the standard FS-S dataset
     """
     def __init__(self, datapath, fold, transform, split, way, shot, bgclass, bgd, rdn_sup,
-                 merge_class=None):
+                 merge_class=None, support_strategy='random',
+                 support_similarity_cache='auto', support_similarity_size=32):
         self.split = 'val' if split in ['val', 'test'] else 'trn'
         self.nfolds = 1
         # Base: 6 classes (Imp. Surf, Buildings, Low Veg, Trees, Cars, Clutter)
@@ -62,6 +63,23 @@ class DatasetVAIHINGEN (Dataset):
         self.img_metadata_classwise = self.build_img_metadata_classwise()
         self.img_metadata = self.build_img_metadata()
         self.rdn_sup = rdn_sup
+
+        self.support_strategy = support_strategy
+        valid_strategies = {'random', 'similarity', 'similarity_global'}
+        if self.support_strategy not in valid_strategies:
+            raise ValueError(f'Invalid support strategy={self.support_strategy}. Choices: {sorted(valid_strategies)}')
+
+        self.similarity_entries = None
+        self.similarity_features = None
+        self.similarity_index = None
+        self.query_feature_cache = {}
+        self.similarity_size = int(support_similarity_size)
+
+        if self.split == 'val' and self.support_strategy in ('similarity', 'similarity_global'):
+            sim_cache_path = self.resolve_cache_path(support_similarity_cache, 'vaihingen_similarity_index.npz')
+            (self.similarity_entries,
+             self.similarity_features,
+             self.similarity_index) = self.load_or_build_similarity_index(sim_cache_path)
 
     def __len__(self):
         return len(self.img_metadata) if self.split == 'trn' else 1000
@@ -218,6 +236,7 @@ class DatasetVAIHINGEN (Dataset):
 
         # 3-way 2-shot support_names: [[c1_1, c1_2], [c2_1, c2_2], [c3_1, c3_2]]
         support_names = []
+        global_similarity_chunks = None
 
         if self.way == 1:
             support_classes = [query_class]
@@ -235,17 +254,33 @@ class DatasetVAIHINGEN (Dataset):
             replace = len(candidates) < shot
             return np.random.choice(candidates, shot, replace=replace).tolist()
 
+        def select_support(pool, query_name, shot):
+            if self.split != 'val' or self.support_strategy == 'random':
+                return sample_from_pool(pool, query_name, shot)
+            if self.support_strategy == 'similarity':
+                return self.sample_similarity_support(pool, query_name, shot)
+            return sample_from_pool(pool, query_name, shot)
+
+        if self.split == 'val' and self.support_strategy == 'similarity_global':
+            total_needed = int(self.way) * int(self.shot)
+            global_list = self.sample_similarity_global(query_name, total_needed)
+            global_similarity_chunks = [global_list[i * int(self.shot):(i + 1) * int(self.shot)] for i in range(int(self.way))]
+
         if self.rdn_sup:
             # For random, use all images from support_pool[21] (all classes combined)
             for _ in support_classes:
-                support_names.append(sample_from_pool(self.support_pool[21], query_name, self.shot))
+                support_names.append(select_support(self.support_pool[21], query_name, self.shot))
         else:
-            # For class-specific pools, use remapped class IDs to read original pool files
-            for sc in support_classes:
-                pool_key = self.class_ids_orig[self.class_ids.index(sc)]
-                if len(self.support_pool[pool_key]) == 0:
-                    raise RuntimeError(f'Empty support pool for original class {pool_key} (remapped {sc}) in {self.pool_path}')
-                support_names.append(sample_from_pool(self.support_pool[pool_key], query_name, self.shot))
+            if global_similarity_chunks is not None:
+                for chunk in global_similarity_chunks:
+                    support_names.append(chunk)
+            else:
+                # For class-specific pools, use remapped class IDs to read original pool files
+                for sc in support_classes:
+                    pool_key = self.class_ids_orig[self.class_ids.index(sc)]
+                    if len(self.support_pool[pool_key]) == 0:
+                        raise RuntimeError(f'Empty support pool for original class {pool_key} (remapped {sc}) in {self.pool_path}')
+                    support_names.append(select_support(self.support_pool[pool_key], query_name, self.shot))
 
         return query_name, support_names, support_classes
 
@@ -305,4 +340,106 @@ class DatasetVAIHINGEN (Dataset):
 
         print(f'Total {self.split} images are : {len(img_metadata):,}')
         return img_metadata
+
+    def resolve_cache_path(self, raw_path, default_name):
+        if raw_path in ['', 'auto']:
+            return os.path.join(self.pool_path, default_name)
+        raw_path = os.path.expanduser(raw_path)
+        if os.path.isabs(raw_path):
+            return raw_path
+        return os.path.join(self.pool_path, raw_path)
+
+    def read_img_array(self, img_name):
+        return np.array(self.read_img(img_name).convert('RGB'))
+
+    def extract_similarity_feature(self, rgb):
+        resized = np.array(Image.fromarray(rgb).resize((self.similarity_size, self.similarity_size), Image.BILINEAR))
+        feat = resized.astype(np.float32).reshape(-1) / 255.0
+        norm = np.linalg.norm(feat) + 1e-12
+        return feat / norm
+
+    def get_query_feature(self, query_name):
+        if query_name not in self.query_feature_cache:
+            query_img = self.read_img_array(query_name)
+            self.query_feature_cache[query_name] = self.extract_similarity_feature(query_img)
+        return self.query_feature_cache[query_name]
+
+    def sample_similarity_support(self, pool, query_name, shot):
+        candidates = [name for name in pool if name != query_name]
+        if not candidates:
+            candidates = list(pool)
+        if not candidates:
+            raise RuntimeError('Empty support candidates while sampling similarity support')
+
+        query_feat = self.get_query_feature(query_name)
+        candidate_pairs = [(name, self.similarity_index[name]) for name in candidates if name in self.similarity_index]
+        candidate_indices = [idx for _, idx in candidate_pairs]
+        if len(candidate_indices) == 0:
+            replace = len(candidates) < shot
+            return np.random.choice(candidates, shot, replace=replace).tolist()
+
+        candidate_feats = self.similarity_features[candidate_indices]
+        sims = np.dot(candidate_feats, query_feat)
+        ranked_pos = np.argsort(-sims)
+        ranked_names = [candidate_pairs[i][0] for i in ranked_pos]
+
+        if len(ranked_names) >= shot:
+            return ranked_names[:shot]
+        if len(ranked_names) == 0:
+            replace = len(candidates) < shot
+            return np.random.choice(candidates, shot, replace=replace).tolist()
+        if len(ranked_names) == 1:
+            return ranked_names * shot
+        return ranked_names + np.random.choice(ranked_names, shot - len(ranked_names), replace=True).tolist()
+
+    def sample_similarity_global(self, query_name, total):
+        candidates = [name for name in self.support_pool[21] if name != query_name]
+        if not candidates:
+            candidates = list(self.support_pool[21])
+        if not candidates:
+            raise RuntimeError('Empty support candidates while sampling similarity_global support')
+
+        query_feat = self.get_query_feature(query_name)
+        candidate_pairs = [(name, self.similarity_index[name]) for name in candidates if name in self.similarity_index]
+        candidate_indices = [idx for _, idx in candidate_pairs]
+        if len(candidate_indices) == 0:
+            replace = len(candidates) < total
+            return np.random.choice(candidates, total, replace=replace).tolist()
+
+        candidate_feats = self.similarity_features[candidate_indices]
+        sims = np.dot(candidate_feats, query_feat)
+        ranked_pos = np.argsort(-sims)
+        ranked_names = [candidate_pairs[i][0] for i in ranked_pos]
+
+        if len(ranked_names) >= total:
+            return ranked_names[:total]
+        if len(ranked_names) == 0:
+            replace = len(candidates) < total
+            return np.random.choice(candidates, total, replace=replace).tolist()
+        if len(ranked_names) == 1:
+            return ranked_names * total
+        return ranked_names + np.random.choice(ranked_names, total - len(ranked_names), replace=True).tolist()
+
+    def load_or_build_similarity_index(self, cache_path):
+        if os.path.exists(cache_path):
+            cache = np.load(cache_path)
+            entries = cache['entries'].astype(str)
+            features = cache['features'].astype(np.float32)
+            index = {name: i for i, name in enumerate(entries.tolist())}
+            return entries.tolist(), features, index
+
+        entries = set(self.query_pool)
+        entries.update(self.support_pool.get(21, []))
+        entry_list = sorted(entries)
+
+        features = []
+        for entry in entry_list:
+            rgb = self.read_img_array(entry)
+            features.append(self.extract_similarity_feature(rgb))
+        features = np.stack(features, axis=0).astype(np.float32)
+
+        os.makedirs(os.path.dirname(cache_path), exist_ok=True)
+        np.savez_compressed(cache_path, entries=np.array(entry_list), features=features)
+        index = {name: i for i, name in enumerate(entry_list)}
+        return entry_list, features, index
 
